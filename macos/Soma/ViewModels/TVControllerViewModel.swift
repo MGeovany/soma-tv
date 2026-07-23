@@ -69,7 +69,7 @@ final class TVControllerViewModel: ObservableObject {
 
     func connectSelected() {
         guard let device = deviceStore.selected else {
-            flash("Añade un televisor primero")
+            flash("Add a TV first")
             return
         }
         client.connect(to: device)
@@ -94,7 +94,7 @@ final class TVControllerViewModel: ObservableObject {
         let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return }
         client.sendText(trimmed)
-        flash("Texto enviado")
+        flash("Text sent")
     }
 
     func launch(_ app: TVApp) { client.launchApp(app) }
@@ -114,17 +114,17 @@ final class TVControllerViewModel: ObservableObject {
     /// Turns the TV on via Wake-on-LAN (needs the MAC address).
     func powerOn() {
         guard let device = deviceStore.selected else {
-            flash("Añade un televisor primero")
+            flash("Add a TV first")
             return
         }
         guard !device.macAddress.trimmingCharacters(in: .whitespaces).isEmpty else {
-            flash("Añade la dirección MAC del televisor para encenderlo por red")
+            flash("Add the TV's MAC address to power it on over the network")
             return
         }
         if WakeOnLAN.send(mac: device.macAddress) {
-            flash("Señal de encendido enviada")
+            flash("Power-on signal sent")
         } else {
-            flash("La dirección MAC no es válida")
+            flash("Invalid MAC address")
         }
     }
 
@@ -134,7 +134,7 @@ final class TVControllerViewModel: ObservableObject {
 
     func startSleepTimer(minutes: Int) {
         sleepTimer.start(minutes: minutes) { [weak self] in self?.powerOff() }
-        flash("El televisor se apagará en \(minutes) min")
+        flash("TV will turn off in \(minutes) min")
     }
 
     func cancelSleepTimer() { sleepTimer.cancel() }

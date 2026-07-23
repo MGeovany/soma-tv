@@ -15,11 +15,11 @@ enum ConnectionState: Equatable {
 
     var title: String {
         switch self {
-        case .disconnected:          return "Desconectado"
-        case .connecting:            return "Conectando…"
-        case .awaitingAuthorization: return "Esperando autorización en el televisor…"
-        case .connected:             return "Conectado"
-        case .unauthorized:          return "No autorizado — acepta el aviso en la tele"
+        case .disconnected:          return "Disconnected"
+        case .connecting:            return "Connecting…"
+        case .awaitingAuthorization: return "Waiting for authorization on the TV…"
+        case .connected:             return "Connected"
+        case .unauthorized:          return "Not authorized — accept the prompt on the TV"
         case .error(let message):    return "Error: \(message)"
         }
     }

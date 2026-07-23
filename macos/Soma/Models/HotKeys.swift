@@ -76,13 +76,13 @@ enum HotKeyAction: String, CaseIterable, Identifiable, Codable {
 
     var title: String {
         switch self {
-        case .volumeUp:    return "Subir volumen"
-        case .volumeDown:  return "Bajar volumen"
-        case .mute:        return "Silenciar"
-        case .playPause:   return "Reproducir / Pausar"
-        case .channelUp:   return "Canal siguiente"
-        case .channelDown: return "Canal anterior"
-        case .power:       return "Encender / Apagar"
+        case .volumeUp:    return "Volume up"
+        case .volumeDown:  return "Volume down"
+        case .mute:        return "Mute"
+        case .playPause:   return "Play / Pause"
+        case .channelUp:   return "Channel up"
+        case .channelDown: return "Channel down"
+        case .power:       return "Power on / off"
         }
     }
 

@@ -23,15 +23,15 @@ struct ShortcutRecorder: View {
                     Image(systemName: "xmark.circle.fill")
                 }
                 .buttonStyle(.borderless)
-                .help("Quitar atajo")
+                .help("Remove shortcut")
             }
         }
         .onDisappear(perform: stop)
     }
 
     private var label: String {
-        if isRecording { return "Pulsa una combinación…" }
-        return combo?.displayString ?? "Sin asignar"
+        if isRecording { return "Press a combination…" }
+        return combo?.displayString ?? "Not set"
     }
 
     private func toggle() {

@@ -9,10 +9,10 @@ struct ContentView: View {
             RemoteControlView(vm: vm)
                 .tabItem { Label("Control", systemImage: "av.remote") }
             DevicesView(vm: vm)
-                .tabItem { Label("Dispositivos", systemImage: "tv") }
+                .tabItem { Label("Devices", systemImage: "tv") }
             SettingsView(vm: vm)
-                .tabItem { Label("Ajustes", systemImage: "gearshape") }
+                .tabItem { Label("Settings", systemImage: "gearshape") }
         }
-        .frame(minWidth: 420, minHeight: 600)
+        .frame(minWidth: 360, minHeight: 600)
     }
 }

@@ -8,7 +8,7 @@ struct AppsGridView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text("Aplicaciones").font(.headline)
+            Text("Apps").font(.headline)
             LazyVGrid(columns: columns, spacing: 8) {
                 ForEach(TVApp.presets) { app in
                     Button { onLaunch(app) } label: {

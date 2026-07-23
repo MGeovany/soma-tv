@@ -15,7 +15,7 @@ struct TVApp: Identifiable, Hashable {
         TVApp(name: "Netflix",     appID: "11101200001",   symbolName: "film.fill"),
         TVApp(name: "Prime Video", appID: "3201512006785", symbolName: "play.tv.fill"),
         TVApp(name: "Disney+",     appID: "3201901017640", symbolName: "sparkles.tv.fill"),
-        TVApp(name: "Hulu",        appID: "3201601007625", symbolName: "tv.fill"),
+        TVApp(name: "HBO Max",     appID: "3201601007230", symbolName: "h.square.fill"),
         TVApp(name: "Spotify",     appID: "3201606009684", symbolName: "music.note"),
     ]
 }

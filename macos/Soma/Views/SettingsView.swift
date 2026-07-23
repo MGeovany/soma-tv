@@ -6,8 +6,8 @@ struct SettingsView: View {
 
     var body: some View {
         Form {
-            Section("Atajos globales de teclado") {
-                Toggle("Activar atajos globales", isOn: Binding(
+            Section("Global keyboard shortcuts") {
+                Toggle("Enable global shortcuts", isOn: Binding(
                     get: { vm.settings.globalHotKeysEnabled },
                     set: { vm.settings.globalHotKeysEnabled = $0; vm.refreshHotKeys() }
                 ))
@@ -21,19 +21,19 @@ struct SettingsView: View {
                         ))
                     }
                 }
-                Text("Los atajos funcionan aunque Soma esté en segundo plano. Requieren al menos una tecla modificadora (⌘⌥⌃⇧).")
+                Text("Shortcuts work even when Soma is in the background. They require at least one modifier key (⌘⌥⌃⇧).")
                     .font(.caption2).foregroundStyle(.secondary)
             }
 
-            Section("Temporizador de apagado") {
+            Section("Sleep timer") {
                 SleepTimerSection(timer: vm.sleepTimer,
                                   isConnected: vm.isConnected,
                                   onStart: { vm.startSleepTimer(minutes: $0) },
                                   onCancel: { vm.cancelSleepTimer() })
             }
 
-            Section("Información") {
-                Text("Soma usa el protocolo WebSocket local de Samsung. Si una función no aparece o no responde, es posible que tu modelo de televisor no la admita; en ese caso se mostrará un aviso en la pantalla de control.")
+            Section("About") {
+                Text("Soma uses Samsung's local WebSocket protocol. If a feature doesn't appear or respond, your TV model may not support it; in that case a notice is shown on the control screen.")
                     .font(.callout).foregroundStyle(.secondary)
             }
         }
@@ -53,16 +53,16 @@ private struct SleepTimerSection: View {
     var body: some View {
         if timer.isRunning {
             HStack {
-                Text("Se apagará en \(timer.displayText)")
+                Text("Turning off in \(timer.displayText)")
                 Spacer()
-                Button("Cancelar", action: onCancel)
+                Button("Cancel", action: onCancel)
             }
         } else {
-            Stepper("Minutos: \(minutes)", value: $minutes, in: 1...240, step: 5)
-            Button("Iniciar temporizador") { onStart(minutes) }
+            Stepper("Minutes: \(minutes)", value: $minutes, in: 1...240, step: 5)
+            Button("Start timer") { onStart(minutes) }
                 .disabled(!isConnected)
             if !isConnected {
-                Text("Conéctate al televisor para programar el apagado.")
+                Text("Connect to the TV to schedule power-off.")
                     .font(.caption2).foregroundStyle(.secondary)
             }
         }

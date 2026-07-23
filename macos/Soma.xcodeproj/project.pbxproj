@@ -32,6 +32,7 @@
 		AA0000000000000000000024 /* AppsGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000024 /* AppsGridView.swift */; };
 		AA0000000000000000000025 /* TextInputBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000025 /* TextInputBar.swift */; };
 		AA0000000000000000000026 /* ShortcutRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000026 /* ShortcutRecorder.swift */; };
+		EE0000000000000000000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF0000000000000000000001 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +64,7 @@
 		BB0000000000000000000024 /* AppsGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsGridView.swift; sourceTree = "<group>"; };
 		BB0000000000000000000025 /* TextInputBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputBar.swift; sourceTree = "<group>"; };
 		BB0000000000000000000026 /* ShortcutRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutRecorder.swift; sourceTree = "<group>"; };
+		FF0000000000000000000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 				CC0000000000000000000002 /* Services */,
 				CC0000000000000000000003 /* ViewModels */,
 				CC0000000000000000000004 /* Views */,
+				FF0000000000000000000001 /* Assets.xcassets */,
 				1B0000000000000000000004 /* Soma.entitlements */,
 				1B0000000000000000000005 /* Info.plist */,
 			);
@@ -224,6 +227,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE0000000000000000000001 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,6 +320,7 @@
 		2000000000000000000000003 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Soma/Soma.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -338,6 +343,7 @@
 		2000000000000000000000004 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Soma/Soma.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;

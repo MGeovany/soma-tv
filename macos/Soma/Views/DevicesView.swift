@@ -11,10 +11,10 @@ struct DevicesView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Text("Televisores").font(.title2.bold())
+                Text("TVs").font(.title2.bold())
                 Spacer()
                 Button { isAdding = true } label: {
-                    Label("Añadir", systemImage: "plus")
+                    Label("Add", systemImage: "plus")
                 }
             }
 
@@ -43,8 +43,8 @@ struct DevicesView: View {
     private var emptyState: some View {
         VStack(spacing: 8) {
             Image(systemName: "tv.slash").font(.largeTitle).foregroundStyle(.secondary)
-            Text("No hay televisores guardados").font(.headline)
-            Text("Añade uno con su dirección IP para empezar.")
+            Text("No saved TVs").font(.headline)
+            Text("Add one with its IP address to get started.")
                 .font(.callout).foregroundStyle(.secondary)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -60,7 +60,7 @@ struct DevicesView: View {
                     .font(.caption).foregroundStyle(.secondary)
             }
             Spacer()
-            Button("Conectar") { vm.connect(to: device) }
+            Button("Connect") { vm.connect(to: device) }
             Button { editing = device } label: { Image(systemName: "pencil") }
                 .buttonStyle(.borderless)
             Button { vm.deviceStore.remove(device) } label: { Image(systemName: "trash") }
@@ -78,19 +78,19 @@ struct DeviceFormView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
-            Text("Televisor").font(.headline)
+            Text("TV").font(.headline)
             Form {
-                TextField("Nombre", text: $device.name)
-                TextField("Dirección IP", text: $device.ipAddress)
-                TextField("MAC (para Wake-on-LAN)", text: $device.macAddress)
-                Toggle("Conexión segura (wss · 8002)", isOn: $device.useSecure)
+                TextField("Name", text: $device.name)
+                TextField("IP address", text: $device.ipAddress)
+                TextField("MAC (for Wake-on-LAN)", text: $device.macAddress)
+                Toggle("Secure connection (wss · 8002)", isOn: $device.useSecure)
             }
             .textFieldStyle(.roundedBorder)
 
             HStack {
                 Spacer()
-                Button("Cancelar") { dismiss() }
-                Button("Guardar") { onSave(device); dismiss() }
+                Button("Cancel") { dismiss() }
+                Button("Save") { onSave(device); dismiss() }
                     .buttonStyle(.borderedProminent)
                     .disabled(device.ipAddress.trimmingCharacters(in: .whitespaces).isEmpty)
             }

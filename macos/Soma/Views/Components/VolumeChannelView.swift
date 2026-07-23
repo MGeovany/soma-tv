@@ -9,22 +9,23 @@ struct VolumeChannelView: View {
 
     var body: some View {
         VStack(spacing: 8) {
+            // Mute in the middle.
             HStack(spacing: 8) {
-                RemoteButton(symbol: "speaker.wave.2.fill", label: "Vol +") { onKey(.volumeUp) }
                 RemoteButton(symbol: "speaker.wave.1.fill", label: "Vol −") { onKey(.volumeDown) }
-                RemoteButton(symbol: "speaker.slash.fill", label: "Silencio") { onKey(.mute) }
+                RemoteButton(symbol: "speaker.slash.fill", label: "Mute") { onKey(.mute) }
+                RemoteButton(symbol: "speaker.wave.2.fill", label: "Vol +") { onKey(.volumeUp) }
             }
             HStack(spacing: 8) {
-                RemoteButton(symbol: "chevron.up.circle", label: "Canal +") { onKey(.channelUp) }
-                RemoteButton(symbol: "chevron.down.circle", label: "Canal −") { onKey(.channelDown) }
-                RemoteButton(symbol: "list.bullet", label: "Lista") { onKey(.channelList) }
+                RemoteButton(symbol: "chevron.down.circle", label: "Ch −") { onKey(.channelDown) }
+                RemoteButton(symbol: "list.bullet", label: "List") { onKey(.channelList) }
+                RemoteButton(symbol: "chevron.up.circle", label: "Ch +") { onKey(.channelUp) }
             }
             HStack {
-                TextField("N.º de canal", text: $channel)
+                TextField("Channel no.", text: $channel)
                     .textFieldStyle(.roundedBorder)
-                    .frame(width: 120)
+                    .frame(maxWidth: .infinity)
                     .onSubmit(go)
-                Button("Ir", action: go)
+                Button("Go", action: go)
                     .disabled(channel.isEmpty)
             }
         }

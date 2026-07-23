@@ -46,7 +46,7 @@ final class SamsungTVClient: NSObject {
     func connect(to device: TVDevice) {
         let ip = device.ipAddress.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !ip.isEmpty else {
-            state = .error("Introduce la dirección IP del televisor")
+            state = .error("Enter the TV IP address")
             return
         }
         self.device = device
@@ -78,7 +78,7 @@ final class SamsungTVClient: NSObject {
             urlString += "&token=\(token)"
         }
         guard let url = URL(string: urlString) else {
-            state = .error("URL no válida")
+            state = .error("Invalid URL")
             return
         }
 
@@ -100,7 +100,7 @@ final class SamsungTVClient: NSObject {
 
     func send(_ key: RemoteKey) {
         guard let task, state.isConnected else {
-            onMessage?("No conectado")
+            onMessage?("Not connected")
             return
         }
         let payload: [String: Any] = [
@@ -118,7 +118,7 @@ final class SamsungTVClient: NSObject {
     /// Sends a string to the field currently focused on the TV.
     func sendText(_ text: String) {
         guard let task, state.isConnected else {
-            onMessage?("No conectado")
+            onMessage?("Not connected")
             return
         }
         let encoded = Data(text.utf8).base64EncodedString()
@@ -138,12 +138,12 @@ final class SamsungTVClient: NSObject {
             let data = try? JSONSerialization.data(withJSONObject: payload),
             let json = String(data: data, encoding: .utf8)
         else {
-            onMessage?("No se pudo codificar el comando")
+            onMessage?("Couldn't encode the command")
             return
         }
         task.send(.string(json)) { [weak self] error in
             guard let error else { return }
-            Task { @MainActor in self?.onMessage?("Error al enviar: \(error.localizedDescription)") }
+            Task { @MainActor in self?.onMessage?("Send error: \(error.localizedDescription)") }
         }
     }
 
@@ -153,12 +153,12 @@ final class SamsungTVClient: NSObject {
     /// rejects it or the app isn't installed — never fails silently.
     func launchApp(_ app: TVApp) {
         guard let device else {
-            onMessage?("No conectado")
+            onMessage?("Not connected")
             return
         }
         let ip = device.ipAddress.trimmingCharacters(in: .whitespacesAndNewlines)
         guard let url = URL(string: "http://\(ip):8001/api/v2/applications/\(app.appID)") else {
-            onMessage?("URL de aplicación no válida")
+            onMessage?("Invalid app URL")
             return
         }
         var request = URLRequest(url: url)
@@ -168,11 +168,11 @@ final class SamsungTVClient: NSObject {
         session.dataTask(with: request) { [weak self] _, response, error in
             Task { @MainActor in
                 if let error {
-                    self?.onMessage?("No se pudo abrir \(app.name): \(error.localizedDescription)")
+                    self?.onMessage?("Couldn't open \(app.name): \(error.localizedDescription)")
                 } else if let http = response as? HTTPURLResponse, http.statusCode >= 400 {
-                    self?.onMessage?("\(app.name) no está disponible en este televisor")
+                    self?.onMessage?("\(app.name) isn't available on this TV")
                 } else {
-                    self?.onMessage?("Abriendo \(app.name)…")
+                    self?.onMessage?("Opening \(app.name)…")
                 }
             }
         }.resume()
@@ -222,7 +222,7 @@ final class SamsungTVClient: NSObject {
         reconnectAttempts += 1
         let delay = min(maxReconnectDelay, pow(2.0, Double(min(reconnectAttempts, 5))))
         state = .connecting
-        onMessage?("Conexión perdida. Reconectando… (intento \(reconnectAttempts))")
+        onMessage?("Connection lost. Reconnecting… (attempt \(reconnectAttempts))")
 
         reconnectTask?.cancel()
         reconnectTask = Task { [weak self] in
