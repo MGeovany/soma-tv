@@ -1,9 +1,9 @@
 # Soma
 
-Soma turns your Mac (and soon your iPhone) into a remote control for your TV.
+A remote control for your Samsung TV that runs on your Mac (and soon your iPhone).
 
-Connect to your TV over your home network and control the volume from your own
-device, without hunting for the physical remote.
+It connects to the TV over your local network and lets you control the volume
+from the app.
 
 ## Status
 
@@ -17,4 +17,4 @@ device, without hunting for the physical remote.
 3. Accept the prompt that appears on the TV the first time.
 4. Control the volume from the app.
 
-> Your Mac/iPhone and the TV must be connected to the same home network.
+> Your Mac/iPhone and the TV must be on the same local network.
