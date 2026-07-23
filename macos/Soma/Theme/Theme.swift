@@ -76,17 +76,17 @@ enum Theme {
     // MARK: Fonts
     // Rajdhani (UI/headings) and Space Mono (metrics) if installed; otherwise
     // graceful native fallbacks that keep the sporty / mono feel.
+    private static let installedFontFamilies = Set(NSFontManager.shared.availableFontFamilies)
+    private static let rajdhaniAvailable = installedFontFamilies.contains("Rajdhani")
+    private static let spaceMonoAvailable = installedFontFamilies.contains("Space Mono")
+
     static func heading(_ size: CGFloat, weight: Font.Weight = .semibold) -> Font {
-        if hasFamily("Rajdhani") { return .custom("Rajdhani", size: size).weight(weight) }
+        if rajdhaniAvailable { return .custom("Rajdhani", size: size).weight(weight) }
         return .system(size: size, weight: weight, design: .rounded)
     }
 
     static func mono(_ size: CGFloat, weight: Font.Weight = .regular) -> Font {
-        if hasFamily("Space Mono") { return .custom("Space Mono", size: size).weight(weight) }
+        if spaceMonoAvailable { return .custom("Space Mono", size: size).weight(weight) }
         return .system(size: size, weight: weight, design: .monospaced)
-    }
-
-    private static func hasFamily(_ name: String) -> Bool {
-        NSFontManager.shared.availableFontFamilies.contains(name)
     }
 }

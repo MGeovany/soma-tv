@@ -83,6 +83,7 @@ struct ContentView: View {
         }
         .buttonStyle(.plain)
         .help(item.title)
+        .accessibilityLabel(Text(item.title))
     }
 
     // MARK: - Content

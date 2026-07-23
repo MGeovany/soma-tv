@@ -71,7 +71,7 @@ extension View {
 /// the spec's metric cards.
 struct SectionCard<Content: View>: View {
     let title: String?
-    @ViewBuilder var content: Content
+    let content: Content
 
     init(_ title: String? = nil, @ViewBuilder content: () -> Content) {
         self.title = title

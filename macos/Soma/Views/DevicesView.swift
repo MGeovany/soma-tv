@@ -135,6 +135,7 @@ struct DeviceFormView: View {
             TextField("", text: text)
                 .font(Theme.mono(12))
                 .glassField()
+                .accessibilityLabel(Text(title))
         }
     }
 }
