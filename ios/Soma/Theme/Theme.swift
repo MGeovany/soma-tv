@@ -68,26 +68,6 @@ enum Theme {
     static let radiusCard:    CGFloat = 14
     static let radiusHero:    CGFloat = 18
 
-    // MARK: Gradients
-    /// Horizontal accent gradient for primary actions and active chips.
-    static let accentGradient = LinearGradient(
-        colors: [accentBright, accent],
-        startPoint: .leading, endPoint: .trailing)
-
-    /// Subtle gradient border for highlighted cards (top-left glow → fade).
-    static var gradientBorder: LinearGradient {
-        LinearGradient(stops: [
-            .init(color: accentBright.opacity(0.45), location: 0.0),
-            .init(color: Color.white.opacity(0.04),  location: 0.40),
-            .init(color: .clear,                     location: 1.0),
-        ], startPoint: .topLeading, endPoint: .bottomTrailing)
-    }
-
-    /// Dark translucent fill layered over a blur to make "almost-black glass".
-    static let glassGradient = LinearGradient(
-        colors: [surfaceBase.opacity(0.82), surfaceDeep.opacity(0.72)],
-        startPoint: .topLeading, endPoint: .bottomTrailing)
-
     // MARK: Fonts
     // SF Pro (system default) for a neutral remote-control feel. Monospaced only
     // for technical values like IPs, timers and channel entry.

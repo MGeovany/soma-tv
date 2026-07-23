@@ -37,13 +37,13 @@ struct RemoteControlView: View {
                                             onChannel: { vm.enterChannel($0) })
                     }
 
+                    SectionCard("Apps") {
+                        AppsGridView { vm.launch($0) }
+                    }
+
                     SectionCard("Sources") {
                         sourcesRow
                         sourcesHint
-                    }
-
-                    SectionCard("Apps") {
-                        AppsGridView { vm.launch($0) }
                     }
 
                     SectionCard("Input") {

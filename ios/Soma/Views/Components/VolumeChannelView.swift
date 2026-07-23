@@ -1,7 +1,20 @@
 import SwiftUI
 
-/// Volume, mute and channel controls, plus direct channel entry.
-struct VolumeChannelView: View {
+/// Volume and mute controls.
+struct VolumeControlsView: View {
+    let onKey: (RemoteKey) -> Void
+
+    var body: some View {
+        HStack(spacing: 8) {
+            RemoteButton(symbol: "speaker.wave.1.fill", label: "Vol −") { onKey(.volumeDown) }
+            RemoteButton(symbol: "speaker.slash.fill", label: "Mute") { onKey(.mute) }
+            RemoteButton(symbol: "speaker.wave.2.fill", label: "Vol +") { onKey(.volumeUp) }
+        }
+    }
+}
+
+/// Channel up/down, list and direct entry.
+struct ChannelControlsView: View {
     let onKey: (RemoteKey) -> Void
     let onChannel: (String) -> Void
 
@@ -9,12 +22,6 @@ struct VolumeChannelView: View {
 
     var body: some View {
         VStack(spacing: 8) {
-            // Mute in the middle.
-            HStack(spacing: 8) {
-                RemoteButton(symbol: "speaker.wave.1.fill", label: "Vol −") { onKey(.volumeDown) }
-                RemoteButton(symbol: "speaker.slash.fill", label: "Mute") { onKey(.mute) }
-                RemoteButton(symbol: "speaker.wave.2.fill", label: "Vol +") { onKey(.volumeUp) }
-            }
             HStack(spacing: 8) {
                 RemoteButton(symbol: "chevron.down.circle", label: "Ch −") { onKey(.channelDown) }
                 RemoteButton(symbol: "list.bullet", label: "List") { onKey(.channelList) }
@@ -35,5 +42,18 @@ struct VolumeChannelView: View {
     private func go() {
         onChannel(channel)
         channel = ""
+    }
+}
+
+/// Volume, mute and channel controls — kept for callers that want both together.
+struct VolumeChannelView: View {
+    let onKey: (RemoteKey) -> Void
+    let onChannel: (String) -> Void
+
+    var body: some View {
+        VStack(spacing: 8) {
+            VolumeControlsView(onKey: onKey)
+            ChannelControlsView(onKey: onKey, onChannel: onChannel)
+        }
     }
 }

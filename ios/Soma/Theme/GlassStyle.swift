@@ -1,40 +1,21 @@
 import SwiftUI
 
-/// Near-black canvas with a single soft lift — no colored glows.
+/// Flat near-black canvas — minimal, no gradients.
 struct MinimalPanelBackground: View {
     var body: some View {
-        ZStack {
-            Theme.canvas
-            RadialGradient(
-                colors: [Color.white.opacity(0.035), .clear],
-                center: .top,
-                startRadius: 0,
-                endRadius: 280
-            )
-        }
-        .ignoresSafeArea()
+        Theme.canvas.ignoresSafeArea()
     }
 }
 
-/// Near-black canvas with soft blue radial glows — used in the main window only.
+/// Flat near-black canvas for the main shell — minimal, no colored glows.
 struct AmbientBackground: View {
     var body: some View {
-        ZStack {
-            Theme.canvas
-            glow(Theme.accent.opacity(0.08),         at: UnitPoint(x: 0.15, y: 0.10), radius: 320)
-            glow(Theme.accentBright.opacity(0.05),   at: UnitPoint(x: 0.85, y: 0.20), radius: 280)
-        }
-        .ignoresSafeArea()
-    }
-
-    private func glow(_ color: Color, at point: UnitPoint, radius: CGFloat) -> some View {
-        RadialGradient(colors: [color, .clear],
-                       center: point, startRadius: 0, endRadius: radius)
+        Theme.canvas.ignoresSafeArea()
     }
 }
 
-/// Glass surface: a blur, a dark translucent gradient tint, an inset highlight
-/// and a border (optionally the accent gradient border for hero cards).
+/// Flat glass surface: a blur, a single flat tint and a thin hairline border.
+/// No gradients or inset highlights — a clean, modern minimal panel.
 struct GlassCard: ViewModifier {
     var cornerRadius: CGFloat = Theme.radiusCard
     var highlighted: Bool = false
@@ -43,43 +24,31 @@ struct GlassCard: ViewModifier {
         let shape = RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
         return content
             .background(shape.fill(.ultraThinMaterial))
-            .background(shape.fill(Theme.glassGradient))
+            .background(shape.fill(Color.white.opacity(0.04)))
             .overlay(
-                shape.strokeBorder(Color.white.opacity(0.05), lineWidth: 1)
-                    .blendMode(.overlay)
-            )
-            .overlay(
-                shape.strokeBorder(highlighted ? AnyShapeStyle(Theme.gradientBorder)
-                                               : AnyShapeStyle(Theme.border),
-                                   lineWidth: 1)
+                shape.strokeBorder(
+                    highlighted ? Theme.accentBright.opacity(0.45)
+                                : Color.white.opacity(0.08),
+                    lineWidth: 1
+                )
             )
             .clipShape(shape)
     }
 }
 
-/// Translucent sidebar panel — lighter than cards so the ambient bg shows through.
+/// Flat translucent sidebar panel with a hairline trailing divider.
 struct GlassRailBackground: View {
     var body: some View {
         ZStack(alignment: .trailing) {
             Rectangle().fill(.ultraThinMaterial)
-            Rectangle().fill(Theme.glassGradient.opacity(0.55))
-            Rectangle().fill(Color.white.opacity(0.025))
-
-            Rectangle()
-                .fill(
-                    LinearGradient(
-                        colors: [Theme.border.opacity(0.35), Theme.border.opacity(0.08)],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
-                )
-                .frame(width: 1)
+            Rectangle().fill(Color.white.opacity(0.03))
+            Rectangle().fill(Theme.border).frame(width: 1)
         }
     }
 }
 
-/// Frosted-glass surface for buttons and tiles. `accent` tints the glass blue
-/// for primary actions; neutral keeps the same look as cards.
+/// Flat frosted surface for buttons and tiles. `accent` uses a solid blue fill;
+/// neutral is a subtle translucent surface. No gradients, highlights or glow.
 struct GlassButtonBackground: View {
     var cornerRadius: CGFloat = 8
     var accent: Bool = false
@@ -89,60 +58,33 @@ struct GlassButtonBackground: View {
         let shape = RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
 
         ZStack {
-            shape.fill(.ultraThinMaterial)
-
             if accent {
-                shape.fill(Theme.accent.opacity(pressed ? 0.42 : 0.30))
-                shape.fill(Theme.accentBright.opacity(pressed ? 0.18 : 0.11))
+                shape.fill(pressed ? Theme.accentHover : Theme.accentBright)
             } else {
-                shape.fill(Color.white.opacity(pressed ? 0.09 : 0.045))
+                shape.fill(.ultraThinMaterial)
+                shape.fill(Color.white.opacity(pressed ? 0.10 : 0.05))
             }
         }
         .overlay(
-            shape.strokeBorder(Color.white.opacity(accent ? 0.14 : 0.06), lineWidth: 1)
-                .blendMode(.overlay)
-        )
-        .overlay(
             shape.strokeBorder(
                 accent
-                    ? Theme.accentBright.opacity(pressed ? 0.55 : 0.38)
+                    ? Color.white.opacity(0.12)
                     : (pressed ? Theme.borderStrong : Theme.border),
                 lineWidth: 1
             )
         )
-        .overlay(alignment: .top) {
-            shape
-                .strokeBorder(
-                    LinearGradient(
-                        colors: [
-                            Color.white.opacity(accent ? 0.28 : 0.14),
-                            Color.white.opacity(0.02),
-                            .clear,
-                        ],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    ),
-                    lineWidth: 1
-                )
-                .padding(1)
-        }
         .clipShape(shape)
-        .shadow(
-            color: accent ? Theme.accentGlow.opacity(pressed ? 0.10 : 0.18) : .clear,
-            radius: accent ? 6 : 0,
-            y: 1
-        )
     }
 }
 
 extension View {
-    /// Wraps content in a glass card. Use `highlighted` for hero surfaces.
+    /// Wraps content in a flat glass card. Use `highlighted` for hero surfaces.
     func glassCard(cornerRadius: CGFloat = Theme.radiusCard,
                    highlighted: Bool = false) -> some View {
         modifier(GlassCard(cornerRadius: cornerRadius, highlighted: highlighted))
     }
 
-    /// Dark glass styling for text inputs.
+    /// Flat dark styling for text inputs.
     func glassField() -> some View {
         textFieldStyle(.plain)
             .foregroundColor(Theme.textPrimary)
@@ -163,8 +105,7 @@ extension View {
     }
 }
 
-/// A titled glass card. The label uses the accent-bright uppercase style from
-/// the spec's metric cards.
+/// A titled glass card. The label uses the accent-bright uppercase style.
 struct SectionCard<Content: View>: View {
     let title: String?
     let content: Content
@@ -200,6 +141,5 @@ struct LiveDot: View {
         Circle()
             .fill(color)
             .frame(width: 8, height: 8)
-            .shadow(color: color.opacity(0.5), radius: 2)
     }
 }

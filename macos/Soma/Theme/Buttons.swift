@@ -1,5 +1,21 @@
 import SwiftUI
 
+/// Dims a control when it is disabled so glass button styles visibly reflect
+/// their `.disabled(...)` state (SwiftUI does not do this automatically for
+/// custom `ButtonStyle`s).
+private struct DisabledDim: ViewModifier {
+    @Environment(\.isEnabled) private var isEnabled
+    func body(content: Content) -> some View {
+        content
+            .opacity(isEnabled ? 1 : 0.38)
+            .saturation(isEnabled ? 1 : 0.4)
+    }
+}
+
+private extension View {
+    func dimWhenDisabled() -> some View { modifier(DisabledDim()) }
+}
+
 /// Primary action: frosted accent glass.
 struct PrimaryButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
@@ -15,6 +31,7 @@ struct PrimaryButtonStyle: ButtonStyle {
                     pressed: configuration.isPressed
                 )
             )
+            .dimWhenDisabled()
     }
 }
 
@@ -32,6 +49,7 @@ struct GhostButtonStyle: ButtonStyle {
                     pressed: configuration.isPressed
                 )
             )
+            .dimWhenDisabled()
     }
 }
 
@@ -49,6 +67,7 @@ struct RemoteTileStyle: ButtonStyle {
                     pressed: configuration.isPressed
                 )
             )
+            .dimWhenDisabled()
     }
 }
 

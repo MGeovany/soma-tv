@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// The full remote as a scrollable column of glass cards: header, power,
-/// D-pad, system, media, volume, channels, sources, apps and text. Command
+/// D-pad, system, media, volume, apps, sources, text and channels. Command
 /// clusters are disabled until connected; Wake-on-LAN stays available so an
 /// off TV can still be woken.
 struct RemoteControlView: View {
@@ -19,14 +19,17 @@ struct RemoteControlView: View {
                             systemRow
                         }
                     }
-                    SectionCard("Media") { mediaRow; seekRow; utilityRow }
-                    SectionCard("Volume & Channels") {
-                        VolumeChannelView(onKey: { vm.send($0) },
-                                          onChannel: { vm.enterChannel($0) })
+                    SectionCard("Volume") {
+                        VolumeControlsView { vm.send($0) }
                     }
-                    SectionCard("Sources") { sourcesRows; sourcesHint }
+                    SectionCard("Media") { mediaRow; seekRow; utilityRow }
                     SectionCard("Apps") { AppsGridView { vm.launch($0) } }
+                    SectionCard("Sources") { sourcesRows; sourcesHint }
                     SectionCard("Send text") { TextInputBar { vm.sendText($0) } }
+                    SectionCard("Channels") {
+                        ChannelControlsView(onKey: { vm.send($0) },
+                                            onChannel: { vm.enterChannel($0) })
+                    }
                 }
                 .disabled(!vm.isConnected)
             }
