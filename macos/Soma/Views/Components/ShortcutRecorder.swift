@@ -13,16 +13,33 @@ struct ShortcutRecorder: View {
         HStack(spacing: 6) {
             Button(action: toggle) {
                 Text(label)
-                    .frame(minWidth: 150)
+                    .font(Theme.mono(11))
+                    .foregroundColor(isRecording ? Theme.accentBright : Theme.textPrimary)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.85)
+                    .frame(minWidth: 112, maxWidth: 140)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 6)
             }
+            .buttonStyle(.plain)
+            .background(
+                GlassButtonBackground(
+                    cornerRadius: 8,
+                    accent: isRecording,
+                    pressed: isRecording
+                )
+            )
+
             if combo != nil {
                 Button {
                     combo = nil
                     stop()
                 } label: {
                     Image(systemName: "xmark.circle.fill")
+                        .font(.system(size: 14))
+                        .foregroundColor(Theme.textMuted)
                 }
-                .buttonStyle(.borderless)
+                .buttonStyle(.plain)
                 .help("Remove shortcut")
             }
         }
@@ -30,7 +47,7 @@ struct ShortcutRecorder: View {
     }
 
     private var label: String {
-        if isRecording { return "Press a combination…" }
+        if isRecording { return "Press keys…" }
         return combo?.displayString ?? "Not set"
     }
 
@@ -41,13 +58,11 @@ struct ShortcutRecorder: View {
     private func start() {
         isRecording = true
         monitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { event in
-            // Ignore lone modifier presses; require at least one modifier so
-            // the shortcut is safe to register globally.
             let combo = KeyCombo(event: event)
             if combo.modifiers != 0 {
                 self.combo = combo
                 self.stop()
-                return nil // swallow the event
+                return nil
             }
             return event
         }

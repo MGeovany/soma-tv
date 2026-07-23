@@ -11,13 +11,13 @@ struct TextInputBar: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text("Send text").font(.headline)
+        VStack(alignment: .leading, spacing: 8) {
             TextField("Type text and send it to the TV…", text: $text)
-                .textFieldStyle(.roundedBorder)
+                .glassField()
                 .frame(maxWidth: .infinity)
                 .onSubmit(send)
             Button("Send", action: send)
+                .buttonStyle(PrimaryButtonStyle())
                 .frame(maxWidth: .infinity)
                 .disabled(isEmpty)
         }

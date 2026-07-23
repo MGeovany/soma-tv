@@ -1,30 +1,50 @@
 import SwiftUI
 
-/// Shows the current connection / authorization / error state clearly, with a
-/// spinner while a connection attempt is in progress. Rendered as a colored
-/// card so the state is always obvious ("connecting…", "connected", errors).
+/// Connection / authorization / error state as a glass pill. Connected shows a
+/// pulsing live dot; connecting shows a spinner; other states show an icon.
 struct StatusBadge: View {
     let state: ConnectionState
 
     var body: some View {
-        HStack(spacing: 8) {
-            if state.isBusy {
-                ProgressView()
-                    .controlSize(.small)
-            } else {
-                Image(systemName: state.symbolName)
-            }
+        HStack(spacing: 6) {
+            leading
             Text(state.title)
-                .lineLimit(2)
-                .multilineTextAlignment(.leading)
+                .font(Theme.ui(11, weight: .medium))
+                .foregroundColor(tint)
+                .lineLimit(1)
+                .minimumScaleFactor(0.85)
             Spacer(minLength: 0)
         }
-        .font(.callout.weight(.medium))
-        .foregroundStyle(state.tint)
-        .padding(.horizontal, 12)
-        .padding(.vertical, 8)
+        .padding(.horizontal, 10)
+        .padding(.vertical, 7)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(state.tint.opacity(0.12), in: RoundedRectangle(cornerRadius: 8))
-        .animation(.default, value: state)
+        .background(
+            RoundedRectangle(cornerRadius: Theme.radiusInput, style: .continuous)
+                .fill(Color.white.opacity(0.06))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: Theme.radiusInput, style: .continuous)
+                .strokeBorder(tint.opacity(0.28), lineWidth: 1)
+        )
+    }
+
+    @ViewBuilder
+    private var leading: some View {
+        if state.isConnected {
+            LiveDot()
+        } else if state.isBusy {
+            ProgressView().controlSize(.small).tint(Theme.accentBright)
+        } else {
+            Image(systemName: state.symbolName).foregroundColor(tint)
+        }
+    }
+
+    private var tint: Color {
+        switch state {
+        case .connected:                          return Theme.success
+        case .connecting, .awaitingAuthorization: return Theme.accentBright
+        case .unauthorized, .error:               return Theme.error
+        case .disconnected:                        return Theme.textMuted
+        }
     }
 }
