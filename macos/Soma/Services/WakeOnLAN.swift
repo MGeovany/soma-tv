@@ -41,7 +41,8 @@ enum WakeOnLAN {
 
     /// Parses "AA:BB:CC:DD:EE:FF" or "AA-BB-..." into 6 bytes.
     private static func parse(_ mac: String) -> [UInt8]? {
-        let parts = mac.split(whereSeparator: { $0 == ":" || $0 == "-" })
+        let sanitized = mac.filter { !$0.isWhitespace }
+        let parts = sanitized.split(whereSeparator: { $0 == ":" || $0 == "-" })
         guard parts.count == 6 else { return nil }
         var bytes = [UInt8]()
         for part in parts {

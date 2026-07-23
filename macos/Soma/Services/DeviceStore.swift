@@ -67,6 +67,19 @@ final class DeviceStore: ObservableObject {
         if let idString = defaults.string(forKey: selectionKey) {
             selectedID = UUID(uuidString: idString)
         }
+        normalizeSelection()
+    }
+
+    private func normalizeSelection() {
+        guard !devices.isEmpty else {
+            selectedID = nil
+            return
+        }
+        if let selectedID, devices.contains(where: { $0.id == selectedID }) {
+            return
+        }
+        selectedID = devices.first?.id
+        save()
     }
 
     private func save() {

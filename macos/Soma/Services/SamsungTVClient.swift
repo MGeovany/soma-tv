@@ -22,6 +22,7 @@ final class SamsungTVClient: NSObject {
     var onMessage: ((String) -> Void)?
 
     private var task: URLSessionWebSocketTask?
+    private let trustPolicy = SamsungTVTrustPolicy()
     private lazy var session: URLSession = {
         // A delegate is required to accept the TV's self-signed cert on wss.
         URLSession(configuration: .default, delegate: self, delegateQueue: nil)
@@ -83,6 +84,7 @@ final class SamsungTVClient: NSObject {
         }
 
         cancelTask()
+        trustPolicy.setAllowedHost(device.useSecure ? ip : nil, port: port)
         state = (device.token?.isEmpty ?? true) ? .awaitingAuthorization : .connecting
 
         let task = session.webSocketTask(with: url)
@@ -94,6 +96,7 @@ final class SamsungTVClient: NSObject {
     private func cancelTask() {
         task?.cancel(with: .goingAway, reason: nil)
         task = nil
+        trustPolicy.setAllowedHost(nil, port: nil)
     }
 
     // MARK: - Commands
@@ -251,15 +254,38 @@ extension SamsungTVClient: URLSessionDelegate {
         didReceive challenge: URLAuthenticationChallenge,
         completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void
     ) {
-        // Samsung TVs use a self-signed certificate on port 8002. For a local
-        // remote we accept the server's certificate as-is.
+        // Samsung TVs use a self-signed certificate on the secure remote port.
+        // Accept it only for the selected TV, not for every URLSession request.
         guard
             challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust,
-            let trust = challenge.protectionSpace.serverTrust
+            let trust = challenge.protectionSpace.serverTrust,
+            trustPolicy.allows(challenge.protectionSpace)
         else {
             completionHandler(.performDefaultHandling, nil)
             return
         }
         completionHandler(.useCredential, URLCredential(trust: trust))
+    }
+}
+
+private final class SamsungTVTrustPolicy: @unchecked Sendable {
+    private let lock = NSLock()
+    private var allowedHost: String?
+    private var allowedPort: Int?
+
+    func setAllowedHost(_ host: String?, port: Int?) {
+        lock.lock()
+        allowedHost = host
+        allowedPort = port
+        lock.unlock()
+    }
+
+    func allows(_ protectionSpace: URLProtectionSpace) -> Bool {
+        lock.lock()
+        let host = allowedHost
+        let port = allowedPort
+        lock.unlock()
+
+        return host == protectionSpace.host && port == protectionSpace.port && port == 8002
     }
 }
