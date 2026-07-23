@@ -23,6 +23,7 @@ struct RemoteControlView: View {
                     SectionCard("Media") {
                         VStack(spacing: 6) {
                             mediaRow
+                            seekRow
                             utilityRow
                         }
                     }
@@ -111,10 +112,19 @@ struct RemoteControlView: View {
         }
     }
 
+    // Skip previous / play / skip next.
     private var mediaRow: some View {
         HStack(spacing: 6) {
-            RemoteButton(symbol: "backward.fill", label: "Rewind") { vm.send(.rewind) }
+            RemoteButton(symbol: "backward.end.fill", label: "Prev") { vm.send(.previous) }
             RemoteButton(symbol: "playpause.fill", label: "Play") { vm.send(.playPause) }
+            RemoteButton(symbol: "forward.end.fill", label: "Next") { vm.send(.next) }
+        }
+    }
+
+    // Seek within the current item (fast-forward / rewind).
+    private var seekRow: some View {
+        HStack(spacing: 6) {
+            RemoteButton(symbol: "backward.fill", label: "Rewind") { vm.send(.rewind) }
             RemoteButton(symbol: "forward.fill", label: "Forward") { vm.send(.fastForward) }
         }
     }
