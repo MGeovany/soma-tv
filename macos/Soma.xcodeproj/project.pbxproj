@@ -8,17 +8,63 @@
 
 /* Begin PBXBuildFile section */
 		1A0000000000000000000001 /* SomaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0000000000000000000001 /* SomaApp.swift */; };
-		1A0000000000000000000002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0000000000000000000002 /* ContentView.swift */; };
-		1A0000000000000000000003 /* SamsungTVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0000000000000000000003 /* SamsungTVController.swift */; };
+		AA00000000000000000000BB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB00000000000000000000BB /* ContentView.swift */; };
+		AA0000000000000000000010 /* TVDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000010 /* TVDevice.swift */; };
+		AA0000000000000000000011 /* RemoteKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000011 /* RemoteKey.swift */; };
+		AA0000000000000000000012 /* TVApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000012 /* TVApp.swift */; };
+		AA0000000000000000000013 /* ConnectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000013 /* ConnectionState.swift */; };
+		AA0000000000000000000014 /* HotKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000014 /* HotKeys.swift */; };
+		AA0000000000000000000015 /* SamsungTVClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000015 /* SamsungTVClient.swift */; };
+		AA0000000000000000000016 /* DeviceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000016 /* DeviceStore.swift */; };
+		AA0000000000000000000017 /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000017 /* SettingsStore.swift */; };
+		AA0000000000000000000018 /* WakeOnLAN.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000018 /* WakeOnLAN.swift */; };
+		AA0000000000000000000019 /* SleepTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000019 /* SleepTimer.swift */; };
+		AA000000000000000000001A /* GlobalHotKeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000000000000000000001A /* GlobalHotKeyManager.swift */; };
+		AA000000000000000000001B /* TVControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000000000000000000001B /* TVControllerViewModel.swift */; };
+		AA000000000000000000001C /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000000000000000000001C /* MenuBarView.swift */; };
+		AA000000000000000000001D /* RemoteControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000000000000000000001D /* RemoteControlView.swift */; };
+		AA000000000000000000001E /* DevicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000000000000000000001E /* DevicesView.swift */; };
+		AA000000000000000000001F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000000000000000000001F /* SettingsView.swift */; };
+		AA0000000000000000000020 /* DPadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000020 /* DPadView.swift */; };
+		AA0000000000000000000021 /* StatusBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000021 /* StatusBadge.swift */; };
+		AA0000000000000000000022 /* RemoteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000022 /* RemoteButton.swift */; };
+		AA0000000000000000000023 /* VolumeChannelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000023 /* VolumeChannelView.swift */; };
+		AA0000000000000000000024 /* AppsGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000024 /* AppsGridView.swift */; };
+		AA0000000000000000000025 /* TextInputBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000025 /* TextInputBar.swift */; };
+		AA0000000000000000000026 /* ShortcutRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000026 /* ShortcutRecorder.swift */; };
+		EE0000000000000000000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF0000000000000000000001 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1B0000000000000000000001 /* SomaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomaApp.swift; sourceTree = "<group>"; };
-		1B0000000000000000000002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		1B0000000000000000000003 /* SamsungTVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamsungTVController.swift; sourceTree = "<group>"; };
 		1B0000000000000000000004 /* Soma.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Soma.entitlements; sourceTree = "<group>"; };
 		1B0000000000000000000005 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1B0000000000000000000006 /* Soma.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Soma.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB00000000000000000000BB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		BB0000000000000000000010 /* TVDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVDevice.swift; sourceTree = "<group>"; };
+		BB0000000000000000000011 /* RemoteKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteKey.swift; sourceTree = "<group>"; };
+		BB0000000000000000000012 /* TVApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVApp.swift; sourceTree = "<group>"; };
+		BB0000000000000000000013 /* ConnectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionState.swift; sourceTree = "<group>"; };
+		BB0000000000000000000014 /* HotKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotKeys.swift; sourceTree = "<group>"; };
+		BB0000000000000000000015 /* SamsungTVClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamsungTVClient.swift; sourceTree = "<group>"; };
+		BB0000000000000000000016 /* DeviceStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceStore.swift; sourceTree = "<group>"; };
+		BB0000000000000000000017 /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
+		BB0000000000000000000018 /* WakeOnLAN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeOnLAN.swift; sourceTree = "<group>"; };
+		BB0000000000000000000019 /* SleepTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepTimer.swift; sourceTree = "<group>"; };
+		BB000000000000000000001A /* GlobalHotKeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalHotKeyManager.swift; sourceTree = "<group>"; };
+		BB000000000000000000001B /* TVControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVControllerViewModel.swift; sourceTree = "<group>"; };
+		BB000000000000000000001C /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
+		BB000000000000000000001D /* RemoteControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteControlView.swift; sourceTree = "<group>"; };
+		BB000000000000000000001E /* DevicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesView.swift; sourceTree = "<group>"; };
+		BB000000000000000000001F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		BB0000000000000000000020 /* DPadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPadView.swift; sourceTree = "<group>"; };
+		BB0000000000000000000021 /* StatusBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBadge.swift; sourceTree = "<group>"; };
+		BB0000000000000000000022 /* RemoteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteButton.swift; sourceTree = "<group>"; };
+		BB0000000000000000000023 /* VolumeChannelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeChannelView.swift; sourceTree = "<group>"; };
+		BB0000000000000000000024 /* AppsGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsGridView.swift; sourceTree = "<group>"; };
+		BB0000000000000000000025 /* TextInputBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputBar.swift; sourceTree = "<group>"; };
+		BB0000000000000000000026 /* ShortcutRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutRecorder.swift; sourceTree = "<group>"; };
+		FF0000000000000000000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,8 +90,11 @@
 			isa = PBXGroup;
 			children = (
 				1B0000000000000000000001 /* SomaApp.swift */,
-				1B0000000000000000000002 /* ContentView.swift */,
-				1B0000000000000000000003 /* SamsungTVController.swift */,
+				CC0000000000000000000001 /* Models */,
+				CC0000000000000000000002 /* Services */,
+				CC0000000000000000000003 /* ViewModels */,
+				CC0000000000000000000004 /* Views */,
+				FF0000000000000000000001 /* Assets.xcassets */,
 				1B0000000000000000000004 /* Soma.entitlements */,
 				1B0000000000000000000005 /* Info.plist */,
 			);
@@ -58,6 +107,66 @@
 				1B0000000000000000000006 /* Soma.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		CC0000000000000000000001 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BB0000000000000000000010 /* TVDevice.swift */,
+				BB0000000000000000000011 /* RemoteKey.swift */,
+				BB0000000000000000000012 /* TVApp.swift */,
+				BB0000000000000000000013 /* ConnectionState.swift */,
+				BB0000000000000000000014 /* HotKeys.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		CC0000000000000000000002 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				BB0000000000000000000015 /* SamsungTVClient.swift */,
+				BB0000000000000000000016 /* DeviceStore.swift */,
+				BB0000000000000000000017 /* SettingsStore.swift */,
+				BB0000000000000000000018 /* WakeOnLAN.swift */,
+				BB0000000000000000000019 /* SleepTimer.swift */,
+				BB000000000000000000001A /* GlobalHotKeyManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		CC0000000000000000000003 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				BB000000000000000000001B /* TVControllerViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		CC0000000000000000000004 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BB00000000000000000000BB /* ContentView.swift */,
+				BB000000000000000000001C /* MenuBarView.swift */,
+				BB000000000000000000001D /* RemoteControlView.swift */,
+				BB000000000000000000001E /* DevicesView.swift */,
+				BB000000000000000000001F /* SettingsView.swift */,
+				CC0000000000000000000005 /* Components */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CC0000000000000000000005 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				BB0000000000000000000020 /* DPadView.swift */,
+				BB0000000000000000000021 /* StatusBadge.swift */,
+				BB0000000000000000000022 /* RemoteButton.swift */,
+				BB0000000000000000000023 /* VolumeChannelView.swift */,
+				BB0000000000000000000024 /* AppsGridView.swift */,
+				BB0000000000000000000025 /* TextInputBar.swift */,
+				BB0000000000000000000026 /* ShortcutRecorder.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -118,6 +227,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE0000000000000000000001 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,9 +238,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A0000000000000000000002 /* ContentView.swift in Sources */,
 				1A0000000000000000000001 /* SomaApp.swift in Sources */,
-				1A0000000000000000000003 /* SamsungTVController.swift in Sources */,
+				AA0000000000000000000010 /* TVDevice.swift in Sources */,
+				AA0000000000000000000011 /* RemoteKey.swift in Sources */,
+				AA0000000000000000000012 /* TVApp.swift in Sources */,
+				AA0000000000000000000013 /* ConnectionState.swift in Sources */,
+				AA0000000000000000000014 /* HotKeys.swift in Sources */,
+				AA0000000000000000000015 /* SamsungTVClient.swift in Sources */,
+				AA0000000000000000000016 /* DeviceStore.swift in Sources */,
+				AA0000000000000000000017 /* SettingsStore.swift in Sources */,
+				AA0000000000000000000018 /* WakeOnLAN.swift in Sources */,
+				AA0000000000000000000019 /* SleepTimer.swift in Sources */,
+				AA000000000000000000001A /* GlobalHotKeyManager.swift in Sources */,
+				AA000000000000000000001B /* TVControllerViewModel.swift in Sources */,
+				AA00000000000000000000BB /* ContentView.swift in Sources */,
+				AA000000000000000000001C /* MenuBarView.swift in Sources */,
+				AA000000000000000000001D /* RemoteControlView.swift in Sources */,
+				AA000000000000000000001E /* DevicesView.swift in Sources */,
+				AA000000000000000000001F /* SettingsView.swift in Sources */,
+				AA0000000000000000000020 /* DPadView.swift in Sources */,
+				AA0000000000000000000021 /* StatusBadge.swift in Sources */,
+				AA0000000000000000000022 /* RemoteButton.swift in Sources */,
+				AA0000000000000000000023 /* VolumeChannelView.swift in Sources */,
+				AA0000000000000000000024 /* AppsGridView.swift in Sources */,
+				AA0000000000000000000025 /* TextInputBar.swift in Sources */,
+				AA0000000000000000000026 /* ShortcutRecorder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,6 +320,7 @@
 		2000000000000000000000003 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Soma/Soma.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -210,6 +343,7 @@
 		2000000000000000000000004 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Soma/Soma.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
