@@ -31,10 +31,16 @@ struct MenuBarView: View {
                         }
 
                         SectionCard("Media") {
-                            HStack(spacing: 6) {
-                                RemoteButton(symbol: "playpause.fill", label: "Play") { vm.send(.playPause) }
-                                RemoteButton(symbol: "stop.fill", label: "Stop") { vm.send(.stop) }
-                                RemoteButton(symbol: "escape", label: "Exit") { vm.send(.exit) }
+                            VStack(spacing: 6) {
+                                HStack(spacing: 6) {
+                                    RemoteButton(symbol: "backward.fill", label: "Rew") { vm.send(.rewind) }
+                                    RemoteButton(symbol: "playpause.fill", label: "Play") { vm.send(.playPause) }
+                                    RemoteButton(symbol: "forward.fill", label: "Fwd") { vm.send(.fastForward) }
+                                }
+                                HStack(spacing: 6) {
+                                    RemoteButton(symbol: "stop.fill", label: "Stop") { vm.send(.stop) }
+                                    RemoteButton(symbol: "escape", label: "Exit") { vm.send(.exit) }
+                                }
                             }
                         }
 
