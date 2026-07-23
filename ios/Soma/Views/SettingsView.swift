@@ -61,7 +61,7 @@ private struct SleepTimerSection: View {
             }
         } else {
             VStack(spacing: 10) {
-                Stepper(value: $minutes, in: 1...240, step: 5) {
+                Stepper(value: $minutes, in: 5...240, step: 5) {
                     Text("\(minutes) min")
                         .font(Theme.ui(13, weight: .medium))
                         .foregroundColor(Theme.textPrimary)

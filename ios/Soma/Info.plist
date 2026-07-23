@@ -40,10 +40,10 @@
 	<!-- iOS shows this before accessing the local network to reach the TV. -->
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>Soma needs the local network to communicate with your TV.</string>
-	<!-- Allow ws:// (and wss:// with the TV's self-signed cert) on the LAN. -->
+	<!-- Allow local ws:// access while keeping ATS defaults for non-local requests. -->
 	<key>NSAppTransportSecurity</key>
 	<dict>
-		<key>NSAllowsArbitraryLoads</key>
+		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
 </dict>

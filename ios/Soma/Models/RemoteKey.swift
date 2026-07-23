@@ -20,8 +20,10 @@ enum RemoteKey: String {
     // Media
     case playPause   = "KEY_PLAY_BACK"   // toggles on most Tizen TVs
     case stop        = "KEY_STOP"
-    case rewind      = "KEY_REWIND"
-    case fastForward = "KEY_FF"
+    case rewind      = "KEY_REWIND"       // seek backward (hold-style)
+    case fastForward = "KEY_FF"           // seek forward (hold-style)
+    case previous    = "KEY_PREVIOUS"     // skip to previous track/chapter
+    case next        = "KEY_NEXT"         // skip to next track/chapter
 
     // Volume
     case volumeUp   = "KEY_VOLUP"
