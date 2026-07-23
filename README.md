@@ -1,20 +1,20 @@
 # Soma
 
-Soma convierte tu Mac (y pronto tu iPhone) en un mando a distancia para tu televisor.
+Soma turns your Mac (and soon your iPhone) into a remote control for your TV.
 
-Conéctate a tu tele por la red de casa y controla el volumen desde tu propio dispositivo,
-sin buscar el mando físico.
+Connect to your TV over your home network and control the volume from your own
+device, without hunting for the physical remote.
 
-## Estado
+## Status
 
-- **Mac** — en desarrollo (subir/bajar volumen y silenciar). Es por donde empezamos.
-- **iOS** — próximamente.
+- **Mac** — in development (volume up/down and mute). This is where we start.
+- **iOS** — coming soon.
 
-## Cómo se usa
+## How to use
 
-1. Abre Soma.
-2. Escribe la dirección de tu televisor.
-3. Acepta el aviso que aparece en la tele la primera vez.
-4. Controla el volumen desde la app.
+1. Open Soma.
+2. Enter your TV's address.
+3. Accept the prompt that appears on the TV the first time.
+4. Control the volume from the app.
 
-> Tu Mac/iPhone y el televisor tienen que estar conectados a la misma red de casa.
+> Your Mac/iPhone and the TV must be connected to the same home network.
