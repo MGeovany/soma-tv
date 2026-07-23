@@ -11,8 +11,8 @@ configuration and device selection.
 
 ## Status
 
-- **Mac** — in development.
-- **iOS** — planned as the next platform.
+- **Mac** (`macos/`) — menu-bar remote with a full configuration window.
+- **iOS** (`ios/`) — SwiftUI mobile remote (iPhone/iPad), same core and design.
 
 > The device running Soma and the TV must be on the same local network.
 
@@ -51,11 +51,26 @@ Soma/
 Native macOS/Swift APIs only (SwiftUI, Network/POSIX, Carbon for global
 hotkeys). No external dependencies.
 
+The iOS app (`ios/Soma/`) mirrors this structure and reuses the same core
+(models, `SamsungTVClient`, stores, view model) and the glass theme. It uses a
+tab bar instead of the menu-bar rail and omits the macOS-only global keyboard
+shortcuts. The core is currently duplicated per platform; a shared Swift
+package is a natural follow-up to de-duplicate it.
+
 ## Build
+
+macOS:
 
 ```
 cd macos
 xcodebuild -project Soma.xcodeproj -scheme Soma -configuration Debug build
 ```
 
-Or open `macos/Soma.xcodeproj` in Xcode and press ▶.
+iOS (simulator):
+
+```
+cd ios
+xcodebuild -project Soma.xcodeproj -target Soma -sdk iphonesimulator build
+```
+
+Or open the respective `.xcodeproj` in Xcode and press ▶.
