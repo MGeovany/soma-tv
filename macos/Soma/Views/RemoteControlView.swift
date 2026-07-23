@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// The full remote, laid out like a physical remote in a narrow column of
-/// glass cards: header, power, D-pad, system, media, volume, channels,
+/// glass cards: header, power, D-pad, system, volume, media, channels,
 /// sources, apps and text. Command clusters are disabled until connected;
 /// Wake-on-LAN stays available so an off TV can still be woken.
 struct RemoteControlView: View {
@@ -20,16 +20,16 @@ struct RemoteControlView: View {
                         }
                     }
 
+                    SectionCard("Volume") {
+                        VolumeControlsView { vm.send($0) }
+                    }
+
                     SectionCard("Media") {
                         VStack(spacing: 6) {
                             mediaRow
                             seekRow
                             utilityRow
                         }
-                    }
-
-                    SectionCard("Volume") {
-                        VolumeControlsView { vm.send($0) }
                     }
 
                     SectionCard("Channels") {
