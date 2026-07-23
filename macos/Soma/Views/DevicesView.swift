@@ -137,6 +137,7 @@ struct DeviceFormView: View {
                 .textCase(.uppercase).tracking(0.6)
                 .foregroundColor(Theme.textMuted)
             TextField("", text: text)
+                .accessibilityLabel(Text(title))
                 .font(Theme.mono(12))
                 .glassField()
                 .accessibilityLabel(Text(title))
