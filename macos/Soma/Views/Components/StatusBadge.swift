@@ -6,17 +6,17 @@ struct StatusBadge: View {
     let state: ConnectionState
 
     var body: some View {
-        HStack(spacing: 8) {
+        HStack(spacing: 6) {
             leading
             Text(state.title)
-                .font(Theme.heading(12, weight: .semibold))
+                .font(Theme.ui(11, weight: .medium))
                 .foregroundColor(tint)
-                .lineLimit(2)
-                .multilineTextAlignment(.leading)
+                .lineLimit(1)
+                .minimumScaleFactor(0.85)
             Spacer(minLength: 0)
         }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 9)
+        .padding(.horizontal, 10)
+        .padding(.vertical, 7)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(
             RoundedRectangle(cornerRadius: Theme.radiusInput, style: .continuous)
@@ -26,7 +26,6 @@ struct StatusBadge: View {
             RoundedRectangle(cornerRadius: Theme.radiusInput, style: .continuous)
                 .strokeBorder(tint.opacity(0.28), lineWidth: 1)
         )
-        .animation(.default, value: state)
     }
 
     @ViewBuilder

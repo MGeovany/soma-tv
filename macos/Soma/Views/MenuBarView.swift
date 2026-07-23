@@ -12,62 +12,112 @@ struct MenuBarView: View {
 
     var body: some View {
         ZStack {
-            AmbientBackground()
+            MinimalPanelBackground()
 
-            VStack(spacing: 12) {
-                Group {
-                    DPadView { vm.send($0) }
+            ScrollView {
+                VStack(spacing: 14) {
+                    SectionCard("Connection") { headerBarContent }
 
-                    HStack(spacing: 8) {
-                        RemoteButton(symbol: "arrow.uturn.backward", label: "Back") { vm.send(.back) }
-                        RemoteButton(symbol: "house.fill", label: "Home") { vm.send(.home) }
-                        RemoteButton(symbol: "playpause.fill", label: "Play") { vm.send(.playPause) }
+                    Group {
+                        SectionCard("Navigate") {
+                            VStack(spacing: 8) {
+                                DPadView { vm.send($0) }
+                                HStack(spacing: 6) {
+                                    RemoteButton(symbol: "arrow.uturn.backward", label: "Back") { vm.send(.back) }
+                                    RemoteButton(symbol: "house.fill", label: "Home") { vm.send(.home) }
+                                    RemoteButton(symbol: "line.3.horizontal", label: "Menu") { vm.send(.menu) }
+                                }
+                            }
+                        }
+
+                        SectionCard("Media") {
+                            HStack(spacing: 6) {
+                                RemoteButton(symbol: "playpause.fill", label: "Play") { vm.send(.playPause) }
+                                RemoteButton(symbol: "stop.fill", label: "Stop") { vm.send(.stop) }
+                                RemoteButton(symbol: "escape", label: "Exit") { vm.send(.exit) }
+                            }
+                        }
+
+                        SectionCard("Volume") {
+                            VolumeControlsView { vm.send($0) }
+                        }
+
+                        SectionCard("Apps") {
+                            AppsGridView(compact: true) { vm.launch($0) }
+                        }
+
+                        SectionCard("Input") {
+                            Button {
+                                showTextInput = true
+                            } label: {
+                                Label("Send text…", systemImage: "keyboard")
+                                    .font(Theme.ui(11, weight: .medium))
+                                    .frame(maxWidth: .infinity)
+                            }
+                            .buttonStyle(GhostButtonStyle())
+                        }
                     }
-                    HStack(spacing: 8) {
-                        RemoteButton(symbol: "speaker.wave.1.fill", label: "Vol −") { vm.send(.volumeDown) }
-                        RemoteButton(symbol: "speaker.slash.fill", label: "Mute") { vm.send(.mute) }
-                        RemoteButton(symbol: "speaker.wave.2.fill", label: "Vol +") { vm.send(.volumeUp) }
+                    .disabled(!vm.isConnected)
+
+                    if !vm.notice.isEmpty {
+                        Text(vm.notice)
+                            .font(Theme.caption(10))
+                            .foregroundColor(Theme.textMuted)
+                            .lineLimit(2)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.horizontal, 2)
                     }
 
-                    AppsGridView { vm.launch($0) }
-
-                    Button {
-                        showTextInput = true
-                    } label: {
-                        Label("Send text…", systemImage: "keyboard")
-                            .frame(maxWidth: .infinity)
-                    }
-                    .buttonStyle(GhostButtonStyle())
+                    footer
                 }
-                .disabled(!vm.isConnected)
-
-                if !vm.notice.isEmpty {
-                    Text(vm.notice)
-                        .font(Theme.mono(10))
-                        .foregroundColor(Theme.textMuted)
-                        .lineLimit(2)
-                }
-
-                Divider().overlay(Theme.border)
-
-                HStack {
-                    Button("Settings…") {
-                        openWindow(id: "main")
-                        NSApp.activate(ignoringOtherApps: true)
-                    }
-                    .buttonStyle(GhostButtonStyle())
-                    Spacer()
-                    Button("Quit") { NSApp.terminate(nil) }
-                        .buttonStyle(GhostButtonStyle())
-                }
+                .padding(12)
             }
-            .padding(12)
         }
         .foregroundColor(Theme.textPrimary)
         .tint(Theme.accentBright)
-        .frame(width: 288)
+        .frame(width: Theme.contentPaneWidth, height: 620)
+        .fixedSize()
         .sheet(isPresented: $showTextInput) {
             TextInputModal { vm.sendText($0) }
+        }
+    }
+
+    private var headerBarContent: some View {
+        HStack(spacing: 8) {
+            LiveDot(color: vm.state.isConnected ? Theme.success : Theme.textSubtle)
+            Text(vm.deviceStore.selected?.displayName ?? "No device")
+                .font(Theme.ui(12, weight: .medium))
+                .lineLimit(1)
+            Spacer(minLength: 0)
+            Text(vm.state.isConnected ? "Connected" : vm.state.title)
+                .font(Theme.caption(10))
+                .foregroundColor(vm.state.isConnected ? Theme.success : Theme.textMuted)
+                .lineLimit(1)
+        }
+    }
+
+    private var footer: some View {
+        VStack(spacing: 10) {
+            Rectangle()
+                .fill(Theme.border)
+                .frame(height: 1)
+
+            HStack {
+                Button("Settings") {
+                    openWindow(id: "main")
+                    NSApp.activate(ignoringOtherApps: true)
+                }
+                .buttonStyle(.plain)
+                .font(Theme.caption(11))
+                .foregroundColor(Theme.textMuted)
+
+                Spacer()
+
+                Button("Quit") { NSApp.terminate(nil) }
+                    .buttonStyle(.plain)
+                    .font(Theme.caption(11))
+                    .foregroundColor(Theme.textMuted)
+            }
         }
     }
 }
@@ -79,10 +129,10 @@ private struct TextInputModal: View {
 
     var body: some View {
         ZStack {
-            AmbientBackground()
+            MinimalPanelBackground()
             VStack(alignment: .leading, spacing: 14) {
                 Text("Send text")
-                    .font(Theme.heading(15, weight: .bold))
+                    .font(Theme.ui(15, weight: .semibold))
                     .foregroundColor(Theme.textPrimary)
                 TextInputBar { text in
                     onSend(text)
@@ -96,6 +146,6 @@ private struct TextInputModal: View {
         }
         .foregroundColor(Theme.textPrimary)
         .tint(Theme.accentBright)
-        .frame(width: 340)
+        .frame(width: 320)
     }
 }

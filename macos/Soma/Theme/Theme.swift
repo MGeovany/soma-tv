@@ -1,5 +1,4 @@
 import SwiftUI
-import AppKit
 
 extension Color {
     /// Builds a color from a 0xRRGGBB hex value.
@@ -12,10 +11,7 @@ extension Color {
     }
 }
 
-/// "Rivalo Glass" design tokens — dark, sporty glassmorphism with Samsung blue
-/// as the energetic accent (in place of the original orange). Everything the
-/// UI needs (colors, fonts, radii, gradients) lives here so the look stays
-/// consistent across every screen.
+/// Design tokens — dark glass UI with a neutral system typeface and Samsung blue accent.
 enum Theme {
 
     // MARK: Canvas & surfaces
@@ -40,6 +36,11 @@ enum Theme {
     static let accentSoft    = Color(hex: 0x2E9BFF, alpha: 0.16)
     static let accentGlow    = Color(hex: 0x2E9BFF, alpha: 0.40)
 
+    /// Flat fills for buttons — no gradients.
+    static let buttonFill        = Color(hex: 0x2563AD)
+    static let buttonFillPressed = Color(hex: 0x1D4F8C)
+    static let buttonBorder      = Color.white.opacity(0.12)
+
     // MARK: Semantic
     static let link    = Color(hex: 0x2E9BFF)
     static let success = Color(hex: 0x00D973)
@@ -47,11 +48,25 @@ enum Theme {
     static let warning = Color(hex: 0xFF9D00)
     static let info    = Color(hex: 0x45D9FF)
 
+    // MARK: Layout
+    static let columnWidth: CGFloat = 252
+    static let wideColumnWidth: CGFloat = 340
+    static let railWidth:   CGFloat = 52
+    static let contentPaddingH: CGFloat = 12
+    /// Width of the pane to the right of the navigation rail (remote control).
+    static var contentPaneWidth: CGFloat { columnWidth + contentPaddingH * 2 }
+    /// Wider pane for devices, settings and other text-heavy screens.
+    static var wideContentPaneWidth: CGFloat { wideColumnWidth + contentPaddingH * 2 }
+    /// Total main-window width for the remote control tab.
+    static var windowWidth: CGFloat { railWidth + contentPaneWidth }
+    /// Total main-window width for text-heavy tabs.
+    static var wideWindowWidth: CGFloat { railWidth + wideContentPaneWidth }
+
     // MARK: Radii
     static let radiusControl: CGFloat = 4
-    static let radiusInput:   CGFloat = 12
-    static let radiusCard:    CGFloat = 18
-    static let radiusHero:    CGFloat = 22
+    static let radiusInput:   CGFloat = 10
+    static let radiusCard:    CGFloat = 14
+    static let radiusHero:    CGFloat = 18
 
     // MARK: Gradients
     /// Horizontal accent gradient for primary actions and active chips.
@@ -74,19 +89,24 @@ enum Theme {
         startPoint: .topLeading, endPoint: .bottomTrailing)
 
     // MARK: Fonts
-    // Rajdhani (UI/headings) and Space Mono (metrics) if installed; otherwise
-    // graceful native fallbacks that keep the sporty / mono feel.
-    private static let installedFontFamilies = Set(NSFontManager.shared.availableFontFamilies)
-    private static let rajdhaniAvailable = installedFontFamilies.contains("Rajdhani")
-    private static let spaceMonoAvailable = installedFontFamilies.contains("Space Mono")
+    // SF Pro (system default) for a neutral remote-control feel. Monospaced only
+    // for technical values like IPs, timers and channel entry.
+
+    /// Primary UI type: buttons, labels, headings.
+    static func ui(_ size: CGFloat, weight: Font.Weight = .medium) -> Font {
+        .system(size: size, weight: weight, design: .default)
+    }
 
     static func heading(_ size: CGFloat, weight: Font.Weight = .semibold) -> Font {
-        if rajdhaniAvailable { return .custom("Rajdhani", size: size).weight(weight) }
-        return .system(size: size, weight: weight, design: .rounded)
+        ui(size, weight: weight)
+    }
+
+    /// Secondary captions and helper text.
+    static func caption(_ size: CGFloat, weight: Font.Weight = .regular) -> Font {
+        ui(size, weight: weight)
     }
 
     static func mono(_ size: CGFloat, weight: Font.Weight = .regular) -> Font {
-        if spaceMonoAvailable { return .custom("Space Mono", size: size).weight(weight) }
-        return .system(size: size, weight: weight, design: .monospaced)
+        .system(size: size, weight: weight, design: .monospaced)
     }
 }

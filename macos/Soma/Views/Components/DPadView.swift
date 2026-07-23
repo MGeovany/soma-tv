@@ -6,17 +6,20 @@ import SwiftUI
 struct DPadView: View {
     let onKey: (RemoteKey) -> Void
 
+    private let tile: CGFloat = 52
+    private let arrowHeight: CGFloat = 36
+
     var body: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 6) {
             arrow(.up, "chevron.up", .upArrow, "Up")
-            HStack(spacing: 8) {
+            HStack(spacing: 6) {
                 arrow(.left, "chevron.left", .leftArrow, "Left")
                 Button {
                     onKey(.ok)
                 } label: {
                     Text("OK")
-                        .font(Theme.heading(15, weight: .bold))
-                        .frame(width: 66, height: 66)
+                        .font(Theme.ui(14, weight: .semibold))
+                        .frame(width: tile, height: tile)
                 }
                 .buttonStyle(RemoteTileStyle(prominent: true))
                 .keyboardShortcut(.return, modifiers: [])
@@ -31,8 +34,8 @@ struct DPadView: View {
             onKey(key)
         } label: {
             Image(systemName: symbol)
-                .font(.system(size: 18, weight: .semibold))
-                .frame(width: 66, height: 44)
+                .font(.system(size: 16, weight: .semibold))
+                .frame(width: tile, height: arrowHeight)
         }
         .buttonStyle(RemoteTileStyle())
         .keyboardShortcut(shortcut, modifiers: [])

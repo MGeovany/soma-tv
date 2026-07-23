@@ -10,18 +10,19 @@ struct RemoteButton: View {
 
     var body: some View {
         Button(action: action) {
-            VStack(spacing: 4) {
+            VStack(spacing: 3) {
                 Image(systemName: symbol)
-                    .font(.system(size: 16, weight: .medium))
+                    .font(.system(size: 14, weight: .medium))
                 if let label {
                     Text(label)
-                        .font(Theme.heading(10, weight: .semibold))
+                        .font(Theme.caption(9, weight: .medium))
                         .textCase(.uppercase)
-                        .tracking(0.5)
+                        .tracking(0.3)
                         .lineLimit(1)
+                        .minimumScaleFactor(0.8)
                 }
             }
-            .frame(maxWidth: .infinity, minHeight: 46)
+            .frame(maxWidth: .infinity, minHeight: 40)
         }
         .buttonStyle(RemoteTileStyle(prominent: prominent))
     }

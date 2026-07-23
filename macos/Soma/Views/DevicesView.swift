@@ -70,13 +70,17 @@ struct DevicesView: View {
                 Text(device.displayName)
                     .font(Theme.heading(14, weight: .semibold))
                     .foregroundColor(Theme.textPrimary)
+                    .lineLimit(1)
                 Text("\(device.ipAddress) · \(device.useSecure ? "wss" : "ws")")
                     .font(Theme.mono(10))
                     .foregroundColor(Theme.textMuted)
+                    .lineLimit(1)
             }
-            Spacer()
+            .frame(maxWidth: .infinity, alignment: .leading)
+
             Button("Connect") { vm.connect(to: device) }
                 .buttonStyle(GhostButtonStyle())
+                .fixedSize(horizontal: true, vertical: false)
             Button { editing = device } label: { Image(systemName: "pencil") }
                 .buttonStyle(.borderless)
                 .foregroundColor(Theme.textMuted)

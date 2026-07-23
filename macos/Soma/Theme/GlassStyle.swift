@@ -1,14 +1,28 @@
 import SwiftUI
 
-/// Near-black canvas with soft blue radial glows — the "ambient-bg" from the
-/// spec. Placed at the back of every window/panel.
+/// Near-black canvas with a single soft lift — no colored glows.
+struct MinimalPanelBackground: View {
+    var body: some View {
+        ZStack {
+            Theme.canvas
+            RadialGradient(
+                colors: [Color.white.opacity(0.035), .clear],
+                center: .top,
+                startRadius: 0,
+                endRadius: 280
+            )
+        }
+        .ignoresSafeArea()
+    }
+}
+
+/// Near-black canvas with soft blue radial glows — used in the main window only.
 struct AmbientBackground: View {
     var body: some View {
         ZStack {
             Theme.canvas
-            glow(Theme.accent.opacity(0.20),      at: UnitPoint(x: 0.12, y: 0.08), radius: 460)
-            glow(Theme.accentBright.opacity(0.12), at: UnitPoint(x: 0.88, y: 0.18), radius: 420)
-            glow(Theme.accent.opacity(0.14),      at: UnitPoint(x: 0.50, y: 1.00), radius: 520)
+            glow(Theme.accent.opacity(0.08),         at: UnitPoint(x: 0.15, y: 0.10), radius: 320)
+            glow(Theme.accentBright.opacity(0.05),   at: UnitPoint(x: 0.85, y: 0.20), radius: 280)
         }
         .ignoresSafeArea()
     }
@@ -43,6 +57,84 @@ struct GlassCard: ViewModifier {
     }
 }
 
+/// Translucent sidebar panel — lighter than cards so the ambient bg shows through.
+struct GlassRailBackground: View {
+    var body: some View {
+        ZStack(alignment: .trailing) {
+            Rectangle().fill(.ultraThinMaterial)
+            Rectangle().fill(Theme.glassGradient.opacity(0.55))
+            Rectangle().fill(Color.white.opacity(0.025))
+
+            Rectangle()
+                .fill(
+                    LinearGradient(
+                        colors: [Theme.border.opacity(0.35), Theme.border.opacity(0.08)],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                )
+                .frame(width: 1)
+        }
+    }
+}
+
+/// Frosted-glass surface for buttons and tiles. `accent` tints the glass blue
+/// for primary actions; neutral keeps the same look as cards.
+struct GlassButtonBackground: View {
+    var cornerRadius: CGFloat = 8
+    var accent: Bool = false
+    var pressed: Bool = false
+
+    var body: some View {
+        let shape = RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+
+        ZStack {
+            shape.fill(.ultraThinMaterial)
+
+            if accent {
+                shape.fill(Theme.accent.opacity(pressed ? 0.42 : 0.30))
+                shape.fill(Theme.accentBright.opacity(pressed ? 0.18 : 0.11))
+            } else {
+                shape.fill(Color.white.opacity(pressed ? 0.09 : 0.045))
+            }
+        }
+        .overlay(
+            shape.strokeBorder(Color.white.opacity(accent ? 0.14 : 0.06), lineWidth: 1)
+                .blendMode(.overlay)
+        )
+        .overlay(
+            shape.strokeBorder(
+                accent
+                    ? Theme.accentBright.opacity(pressed ? 0.55 : 0.38)
+                    : (pressed ? Theme.borderStrong : Theme.border),
+                lineWidth: 1
+            )
+        )
+        .overlay(alignment: .top) {
+            shape
+                .strokeBorder(
+                    LinearGradient(
+                        colors: [
+                            Color.white.opacity(accent ? 0.28 : 0.14),
+                            Color.white.opacity(0.02),
+                            .clear,
+                        ],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    ),
+                    lineWidth: 1
+                )
+                .padding(1)
+        }
+        .clipShape(shape)
+        .shadow(
+            color: accent ? Theme.accentGlow.opacity(pressed ? 0.10 : 0.18) : .clear,
+            radius: accent ? 6 : 0,
+            y: 1
+        )
+    }
+}
+
 extension View {
     /// Wraps content in a glass card. Use `highlighted` for hero surfaces.
     func glassCard(cornerRadius: CGFloat = Theme.radiusCard,
@@ -58,7 +150,11 @@ extension View {
             .padding(.vertical, 9)
             .background(
                 RoundedRectangle(cornerRadius: Theme.radiusInput, style: .continuous)
-                    .fill(Color.white.opacity(0.06))
+                    .fill(.ultraThinMaterial)
+            )
+            .background(
+                RoundedRectangle(cornerRadius: Theme.radiusInput, style: .continuous)
+                    .fill(Color.white.opacity(0.05))
             )
             .overlay(
                 RoundedRectangle(cornerRadius: Theme.radiusInput, style: .continuous)
@@ -79,37 +175,31 @@ struct SectionCard<Content: View>: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: 8) {
             if let title {
                 Text(title)
-                    .font(Theme.heading(11, weight: .bold))
+                    .font(Theme.caption(10, weight: .semibold))
                     .textCase(.uppercase)
-                    .tracking(0.8)
+                    .tracking(0.4)
                     .foregroundColor(Theme.accentBright)
             }
             content
         }
-        .padding(14)
+        .padding(.horizontal, 11)
+        .padding(.vertical, 10)
         .frame(maxWidth: .infinity, alignment: .leading)
         .glassCard()
     }
 }
 
-/// A pulsing green "live" dot with a soft glow — used for the connected state.
+/// A static status dot — used for the connected state.
 struct LiveDot: View {
     var color: Color = Theme.success
-    @State private var pulse = false
 
     var body: some View {
         Circle()
             .fill(color)
             .frame(width: 8, height: 8)
-            .shadow(color: color.opacity(0.8), radius: pulse ? 5 : 2)
-            .scaleEffect(pulse ? 1.0 : 0.82)
-            .onAppear {
-                withAnimation(.easeInOut(duration: 1.1).repeatForever(autoreverses: true)) {
-                    pulse = true
-                }
-            }
+            .shadow(color: color.opacity(0.5), radius: 2)
     }
 }

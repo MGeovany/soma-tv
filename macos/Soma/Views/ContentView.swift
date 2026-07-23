@@ -31,33 +31,41 @@ struct ContentView: View {
 
             HStack(spacing: 0) {
                 rail
-                Divider().overlay(Theme.border)
                 content
             }
         }
         .foregroundColor(Theme.textPrimary)
         .tint(Theme.accentBright)
-        .frame(minWidth: 380, minHeight: 620)
+        .frame(width: activeWindowWidth)
+        .frame(minHeight: 580, idealHeight: 620)
+    }
+
+    private var activeContentWidth: CGFloat {
+        switch section {
+        case .control: Theme.contentPaneWidth
+        case .devices, .settings: Theme.wideContentPaneWidth
+        }
+    }
+
+    private var activeWindowWidth: CGFloat {
+        Theme.railWidth + activeContentWidth
     }
 
     // MARK: - Navigation rail
 
     private var rail: some View {
-        VStack(spacing: 10) {
+        VStack(spacing: 6) {
             ForEach(Section.allCases) { item in
                 railButton(item)
             }
-            Spacer()
+            Spacer(minLength: 0)
             LiveDot(color: vm.state.isConnected ? Theme.success : Theme.textSubtle)
-                .padding(.bottom, 10)
         }
-        .padding(.vertical, 14)
-        .frame(width: 56)
-        .background(.ultraThinMaterial)
-        .background(Theme.glassGradient)
-        .overlay(alignment: .trailing) {
-            Rectangle().fill(Theme.border).frame(width: 1)
-        }
+        .padding(.horizontal, 8)
+        .padding(.top, 32)
+        .padding(.bottom, 14)
+        .frame(width: Theme.railWidth)
+        .background(GlassRailBackground())
     }
 
     private func railButton(_ item: Section) -> some View {
@@ -66,18 +74,20 @@ struct ContentView: View {
             section = item
         } label: {
             Image(systemName: item.symbol)
-                .font(.system(size: 17, weight: .medium))
-                .foregroundColor(selected ? Theme.accentBright : Theme.textMuted)
-                .frame(width: 40, height: 40)
-                .background(
-                    RoundedRectangle(cornerRadius: 10, style: .continuous)
-                        .fill(selected ? Theme.accentSoft : Color.clear)
-                )
-                .overlay(alignment: .leading) {
+                .font(.system(size: 16, weight: .medium))
+                .symbolRenderingMode(.hierarchical)
+                .foregroundStyle(selected ? .white : Theme.textMuted)
+                .frame(width: 36, height: 36)
+                .background {
                     if selected {
-                        Capsule().fill(Theme.accentGradient)
-                            .frame(width: 2, height: 22)
-                            .offset(x: -9)
+                        GlassButtonBackground(cornerRadius: 10, accent: true)
+                    } else {
+                        RoundedRectangle(cornerRadius: 10, style: .continuous)
+                            .fill(Color.white.opacity(0.04))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                    .strokeBorder(Theme.border.opacity(0.5), lineWidth: 1)
+                            )
                     }
                 }
         }
@@ -90,10 +100,13 @@ struct ContentView: View {
 
     @ViewBuilder
     private var content: some View {
-        switch section {
-        case .control:  RemoteControlView(vm: vm)
-        case .devices:  DevicesView(vm: vm)
-        case .settings: SettingsView(vm: vm)
+        Group {
+            switch section {
+            case .control:  RemoteControlView(vm: vm)
+            case .devices:  DevicesView(vm: vm)
+            case .settings: SettingsView(vm: vm)
+            }
         }
+        .frame(width: activeContentWidth)
     }
 }
