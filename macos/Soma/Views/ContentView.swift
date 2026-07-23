@@ -38,6 +38,8 @@ struct ContentView: View {
         .tint(Theme.accentBright)
         .frame(width: activeWindowWidth)
         .frame(minHeight: 580, idealHeight: 620)
+        .fixedSize(horizontal: true, vertical: false)
+        .background(WindowWidthSync(width: activeWindowWidth))
     }
 
     private var activeContentWidth: CGFloat {

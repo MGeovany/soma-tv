@@ -18,7 +18,7 @@ struct SomaApp: App {
         Window("Soma", id: "main") {
             ContentView(vm: vm)
         }
-        .defaultSize(width: Theme.wideWindowWidth, height: 620)
-        .windowResizability(.contentMinSize)
+        .defaultSize(width: Theme.windowWidth, height: 620)
+        .windowResizability(.contentSize)
     }
 }

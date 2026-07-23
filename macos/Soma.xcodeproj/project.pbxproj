@@ -31,6 +31,7 @@
 		AA0000000000000000000024 /* AppsGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000024 /* AppsGridView.swift */; };
 		AA0000000000000000000025 /* TextInputBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000025 /* TextInputBar.swift */; };
 		AA0000000000000000000026 /* ShortcutRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000026 /* ShortcutRecorder.swift */; };
+		AA0000000000000000000027 /* WindowWidthSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000027 /* WindowWidthSync.swift */; };
 		AA0000000000000000000030 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000030 /* Theme.swift */; };
 		AA0000000000000000000031 /* GlassStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000031 /* GlassStyle.swift */; };
 		AA0000000000000000000032 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000032 /* Buttons.swift */; };
@@ -66,6 +67,7 @@
 		BB0000000000000000000024 /* AppsGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsGridView.swift; sourceTree = "<group>"; };
 		BB0000000000000000000025 /* TextInputBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputBar.swift; sourceTree = "<group>"; };
 		BB0000000000000000000026 /* ShortcutRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutRecorder.swift; sourceTree = "<group>"; };
+		BB0000000000000000000027 /* WindowWidthSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowWidthSync.swift; sourceTree = "<group>"; };
 		BB0000000000000000000030 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		BB0000000000000000000031 /* GlassStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassStyle.swift; sourceTree = "<group>"; };
 		BB0000000000000000000032 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 				BB0000000000000000000024 /* AppsGridView.swift */,
 				BB0000000000000000000025 /* TextInputBar.swift */,
 				BB0000000000000000000026 /* ShortcutRecorder.swift */,
+				BB0000000000000000000027 /* WindowWidthSync.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 				AA0000000000000000000024 /* AppsGridView.swift in Sources */,
 				AA0000000000000000000025 /* TextInputBar.swift in Sources */,
 				AA0000000000000000000026 /* ShortcutRecorder.swift in Sources */,
+				AA0000000000000000000027 /* WindowWidthSync.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
