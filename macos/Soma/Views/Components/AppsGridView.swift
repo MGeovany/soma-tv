@@ -4,22 +4,12 @@ import SwiftUI
 struct AppsGridView: View {
     let onLaunch: (TVApp) -> Void
 
-    private let columns = [GridItem(.adaptive(minimum: 88), spacing: 8)]
+    private let columns = [GridItem(.adaptive(minimum: 84), spacing: 8)]
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text("Apps").font(.headline)
-            LazyVGrid(columns: columns, spacing: 8) {
-                ForEach(TVApp.presets) { app in
-                    Button { onLaunch(app) } label: {
-                        VStack(spacing: 4) {
-                            Image(systemName: app.symbolName).font(.title2)
-                            Text(app.name).font(.caption).lineLimit(1)
-                        }
-                        .frame(maxWidth: .infinity, minHeight: 54)
-                    }
-                    .buttonStyle(.bordered)
-                }
+        LazyVGrid(columns: columns, spacing: 8) {
+            ForEach(TVApp.presets) { app in
+                RemoteButton(symbol: app.symbolName, label: app.name) { onLaunch(app) }
             }
         }
     }

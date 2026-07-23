@@ -5,39 +5,53 @@ struct SettingsView: View {
     @ObservedObject var vm: TVControllerViewModel
 
     var body: some View {
-        Form {
-            Section("Global keyboard shortcuts") {
-                Toggle("Enable global shortcuts", isOn: Binding(
-                    get: { vm.settings.globalHotKeysEnabled },
-                    set: { vm.settings.globalHotKeysEnabled = $0; vm.refreshHotKeys() }
-                ))
-                ForEach(HotKeyAction.allCases) { action in
-                    HStack {
-                        Text(action.title)
-                        Spacer()
-                        ShortcutRecorder(combo: Binding(
-                            get: { vm.settings.hotKeys[action] },
-                            set: { vm.settings.hotKeys[action] = $0; vm.refreshHotKeys() }
-                        ))
+        ScrollView {
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Settings")
+                    .font(Theme.heading(22, weight: .bold))
+                    .foregroundColor(Theme.textPrimary)
+
+                SectionCard("Global keyboard shortcuts") {
+                    Toggle("Enable global shortcuts", isOn: Binding(
+                        get: { vm.settings.globalHotKeysEnabled },
+                        set: { vm.settings.globalHotKeysEnabled = $0; vm.refreshHotKeys() }
+                    ))
+                    .font(Theme.heading(12))
+                    .tint(Theme.accentBright)
+
+                    ForEach(HotKeyAction.allCases) { action in
+                        HStack {
+                            Text(action.title)
+                                .font(Theme.heading(12))
+                                .foregroundColor(Theme.textPrimary)
+                            Spacer()
+                            ShortcutRecorder(combo: Binding(
+                                get: { vm.settings.hotKeys[action] },
+                                set: { vm.settings.hotKeys[action] = $0; vm.refreshHotKeys() }
+                            ))
+                        }
                     }
+
+                    Text("Shortcuts work even when Soma is in the background. They require at least one modifier key (⌘⌥⌃⇧).")
+                        .font(Theme.mono(9))
+                        .foregroundColor(Theme.textSubtle)
                 }
-                Text("Shortcuts work even when Soma is in the background. They require at least one modifier key (⌘⌥⌃⇧).")
-                    .font(.caption2).foregroundStyle(.secondary)
-            }
 
-            Section("Sleep timer") {
-                SleepTimerSection(timer: vm.sleepTimer,
-                                  isConnected: vm.isConnected,
-                                  onStart: { vm.startSleepTimer(minutes: $0) },
-                                  onCancel: { vm.cancelSleepTimer() })
-            }
+                SectionCard("Sleep timer") {
+                    SleepTimerSection(timer: vm.sleepTimer,
+                                      isConnected: vm.isConnected,
+                                      onStart: { vm.startSleepTimer(minutes: $0) },
+                                      onCancel: { vm.cancelSleepTimer() })
+                }
 
-            Section("About") {
-                Text("Soma uses Samsung's local WebSocket protocol. If a feature doesn't appear or respond, your TV model may not support it; in that case a notice is shown on the control screen.")
-                    .font(.callout).foregroundStyle(.secondary)
+                SectionCard("About") {
+                    Text("Soma uses Samsung's local WebSocket protocol. If a feature doesn't appear or respond, your TV model may not support it; in that case a notice is shown on the control screen.")
+                        .font(Theme.mono(10))
+                        .foregroundColor(Theme.textMuted)
+                }
             }
+            .padding(16)
         }
-        .formStyle(.grouped)
     }
 }
 
@@ -53,17 +67,29 @@ private struct SleepTimerSection: View {
     var body: some View {
         if timer.isRunning {
             HStack {
-                Text("Turning off in \(timer.displayText)")
+                Text("Turning off in")
+                    .font(Theme.heading(12))
+                    .foregroundColor(Theme.textMuted)
+                Text(timer.displayText)
+                    .font(Theme.mono(20, weight: .bold))
+                    .foregroundColor(Theme.accentBright)
                 Spacer()
                 Button("Cancel", action: onCancel)
+                    .buttonStyle(GhostButtonStyle())
             }
         } else {
-            Stepper("Minutes: \(minutes)", value: $minutes, in: 1...240, step: 5)
+            Stepper(value: $minutes, in: 1...240, step: 5) {
+                Text("Minutes: \(minutes)")
+                    .font(Theme.heading(12))
+                    .foregroundColor(Theme.textPrimary)
+            }
             Button("Start timer") { onStart(minutes) }
+                .buttonStyle(PrimaryButtonStyle())
                 .disabled(!isConnected)
             if !isConnected {
                 Text("Connect to the TV to schedule power-off.")
-                    .font(.caption2).foregroundStyle(.secondary)
+                    .font(Theme.mono(9))
+                    .foregroundColor(Theme.textSubtle)
             }
         }
     }

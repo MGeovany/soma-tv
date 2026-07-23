@@ -11,10 +11,15 @@ struct DPadView: View {
             arrow(.up, "chevron.up", .upArrow, "Up")
             HStack(spacing: 8) {
                 arrow(.left, "chevron.left", .leftArrow, "Left")
-                Button("OK") { onKey(.ok) }
-                    .frame(width: 66, height: 66)
-                    .buttonStyle(.borderedProminent)
-                    .keyboardShortcut(.return, modifiers: [])
+                Button {
+                    onKey(.ok)
+                } label: {
+                    Text("OK")
+                        .font(Theme.heading(15, weight: .bold))
+                        .frame(width: 66, height: 66)
+                }
+                .buttonStyle(RemoteTileStyle(prominent: true))
+                .keyboardShortcut(.return, modifiers: [])
                 arrow(.right, "chevron.right", .rightArrow, "Right")
             }
             arrow(.down, "chevron.down", .downArrow, "Down")
@@ -22,12 +27,14 @@ struct DPadView: View {
     }
 
     private func arrow(_ key: RemoteKey, _ symbol: String, _ shortcut: KeyEquivalent, _ label: LocalizedStringKey) -> some View {
-        Button { onKey(key) } label: {
+        Button {
+            onKey(key)
+        } label: {
             Image(systemName: symbol)
-                .font(.title2)
+                .font(.system(size: 18, weight: .semibold))
                 .frame(width: 66, height: 44)
         }
-        .buttonStyle(.bordered)
+        .buttonStyle(RemoteTileStyle())
         .keyboardShortcut(shortcut, modifiers: [])
         .accessibilityLabel(label)
     }

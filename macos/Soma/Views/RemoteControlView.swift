@@ -1,37 +1,40 @@
 import SwiftUI
 
-/// The full remote, laid out like a physical remote in a narrow column:
-/// power, D-pad, system, media, volume, channels, sources, apps and text.
-/// Command clusters are disabled until the TV is connected; Wake-on-LAN stays
-/// available so an off TV can still be woken.
+/// The full remote, laid out like a physical remote in a narrow column of
+/// glass cards: header, power, D-pad, system, media, volume, channels,
+/// sources, apps and text. Command clusters are disabled until connected;
+/// Wake-on-LAN stays available so an off TV can still be woken.
 struct RemoteControlView: View {
     @ObservedObject var vm: TVControllerViewModel
 
-    /// Keeps the control column narrow, like a real remote.
-    private let columnWidth: CGFloat = 300
+    private let columnWidth: CGFloat = 320
 
     var body: some View {
         ScrollView {
-            VStack(spacing: 14) {
+            VStack(spacing: 12) {
                 header
-                powerRow
 
                 Group {
-                    DPadView { vm.send($0) }
-                    systemRow
-                    mediaRow
-                    utilityRow
-                    VolumeChannelView(onKey: { vm.send($0) },
-                                      onChannel: { vm.enterChannel($0) })
-                    sourcesSection
-                    AppsGridView { vm.launch($0) }
-                    TextInputBar { vm.sendText($0) }
+                    SectionCard {
+                        VStack(spacing: 10) {
+                            DPadView { vm.send($0) }
+                            systemRow
+                        }
+                    }
+                    SectionCard("Media") { mediaRow; utilityRow }
+                    SectionCard("Volume & Channels") {
+                        VolumeChannelView(onKey: { vm.send($0) },
+                                          onChannel: { vm.enterChannel($0) })
+                    }
+                    SectionCard("Sources") { sourcesRow; sourcesHint }
+                    SectionCard("Apps") { AppsGridView { vm.launch($0) } }
+                    SectionCard("Send text") { TextInputBar { vm.sendText($0) } }
                 }
                 .disabled(!vm.isConnected)
             }
             .frame(maxWidth: columnWidth)
-            .frame(maxWidth: .infinity) // center the column
-            .padding()
+            .frame(maxWidth: .infinity)
+            .padding(16)
         }
         .overlay(alignment: .bottom) { noticeBar }
     }
@@ -39,36 +42,42 @@ struct RemoteControlView: View {
     // MARK: - Header
 
     private var header: some View {
-        VStack(spacing: 10) {
-            HStack {
-                Menu {
-                    ForEach(vm.deviceStore.devices) { device in
-                        Button(device.displayName) { vm.connect(to: device) }
+        SectionCard {
+            VStack(spacing: 10) {
+                HStack {
+                    Menu {
+                        ForEach(vm.deviceStore.devices) { device in
+                            Button(device.displayName) { vm.connect(to: device) }
+                        }
+                    } label: {
+                        Label(vm.deviceStore.selected?.displayName ?? "No device",
+                              systemImage: "tv")
+                            .font(Theme.heading(13, weight: .semibold))
                     }
-                } label: {
-                    Label(vm.deviceStore.selected?.displayName ?? "No device",
-                          systemImage: "tv")
-                }
-                .disabled(vm.deviceStore.devices.isEmpty)
+                    .menuStyle(.borderlessButton)
+                    .disabled(vm.deviceStore.devices.isEmpty)
 
-                Spacer()
+                    Spacer()
 
-                Button(vm.isConnected ? "Disconnect" : "Connect") {
-                    vm.toggleConnection()
+                    if vm.isConnected {
+                        Button("Disconnect") { vm.toggleConnection() }
+                            .buttonStyle(GhostButtonStyle())
+                            .disabled(vm.deviceStore.selected == nil)
+                    } else {
+                        Button("Connect") { vm.toggleConnection() }
+                            .buttonStyle(PrimaryButtonStyle())
+                            .disabled(vm.deviceStore.selected == nil)
+                    }
                 }
-                .buttonStyle(.borderedProminent)
-                .disabled(vm.deviceStore.selected == nil)
+
+                StatusBadge(state: vm.state)
+
+                HStack(spacing: 8) {
+                    RemoteButton(symbol: "power", label: "Power On") { vm.powerOn() }
+                    RemoteButton(symbol: "poweroff", label: "Power Off") { vm.powerOff() }
+                        .disabled(!vm.isConnected)
+                }
             }
-
-            StatusBadge(state: vm.state)
-        }
-    }
-
-    private var powerRow: some View {
-        HStack(spacing: 8) {
-            RemoteButton(symbol: "power", label: "Power On") { vm.powerOn() }
-            RemoteButton(symbol: "poweroff", label: "Power Off") { vm.powerOff() }
-                .disabled(!vm.isConnected)
         }
     }
 
@@ -100,20 +109,20 @@ struct RemoteControlView: View {
     }
 
     // HDMI 1–3, then TV, then Source.
-    private var sourcesSection: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text("Sources").font(.headline)
-            HStack(spacing: 8) {
-                RemoteButton(symbol: "1.square", label: "HDMI1") { vm.send(.hdmi1) }
-                RemoteButton(symbol: "2.square", label: "HDMI2") { vm.send(.hdmi2) }
-                RemoteButton(symbol: "3.square", label: "HDMI3") { vm.send(.hdmi3) }
-                RemoteButton(symbol: "tv", label: "TV") { vm.send(.tv) }
-                RemoteButton(symbol: "list.bullet.rectangle", label: "Source") { vm.send(.source) }
-            }
-            Text("If the TV doesn't switch source, it may not support direct HDMI keys. Use “Source”.")
-                .font(.caption2)
-                .foregroundStyle(.secondary)
+    private var sourcesRow: some View {
+        HStack(spacing: 8) {
+            RemoteButton(symbol: "1.square", label: "HDMI1") { vm.send(.hdmi1) }
+            RemoteButton(symbol: "2.square", label: "HDMI2") { vm.send(.hdmi2) }
+            RemoteButton(symbol: "3.square", label: "HDMI3") { vm.send(.hdmi3) }
+            RemoteButton(symbol: "tv", label: "TV") { vm.send(.tv) }
+            RemoteButton(symbol: "list.bullet.rectangle", label: "Source") { vm.send(.source) }
         }
+    }
+
+    private var sourcesHint: some View {
+        Text("If the TV doesn't switch source, it may not support direct HDMI keys. Use “Source”.")
+            .font(Theme.mono(9))
+            .foregroundColor(Theme.textSubtle)
     }
 
     // MARK: - Notice
@@ -122,11 +131,12 @@ struct RemoteControlView: View {
     private var noticeBar: some View {
         if !vm.notice.isEmpty {
             Text(vm.notice)
-                .font(.callout)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
-                .background(.thinMaterial, in: Capsule())
-                .padding(.bottom, 10)
+                .font(Theme.mono(11))
+                .foregroundColor(Theme.textPrimary)
+                .padding(.horizontal, 14)
+                .padding(.vertical, 9)
+                .glassCard(cornerRadius: 999, highlighted: true)
+                .padding(.bottom, 12)
                 .transition(.opacity)
         }
     }

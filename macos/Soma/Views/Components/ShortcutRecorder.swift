@@ -13,14 +13,18 @@ struct ShortcutRecorder: View {
         HStack(spacing: 6) {
             Button(action: toggle) {
                 Text(label)
+                    .font(Theme.mono(11))
+                    .foregroundColor(isRecording ? Theme.accentBright : Theme.textPrimary)
                     .frame(minWidth: 150)
             }
+            .buttonStyle(GhostButtonStyle())
             if combo != nil {
                 Button {
                     combo = nil
                     stop()
                 } label: {
                     Image(systemName: "xmark.circle.fill")
+                        .foregroundColor(Theme.textMuted)
                 }
                 .buttonStyle(.borderless)
                 .help("Remove shortcut")

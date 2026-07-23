@@ -20,12 +20,14 @@ struct VolumeChannelView: View {
                 RemoteButton(symbol: "list.bullet", label: "List") { onKey(.channelList) }
                 RemoteButton(symbol: "chevron.up.circle", label: "Ch +") { onKey(.channelUp) }
             }
-            HStack {
+            HStack(spacing: 8) {
                 TextField("Channel no.", text: $channel)
-                    .textFieldStyle(.roundedBorder)
+                    .font(Theme.mono(13))
+                    .glassField()
                     .frame(maxWidth: .infinity)
                     .onSubmit(go)
                 Button("Go", action: go)
+                    .buttonStyle(GhostButtonStyle())
                     .disabled(channel.isEmpty)
             }
         }
