@@ -8,8 +8,7 @@ remote-control commands to it.
 
 ## Status
 
-- **Mac** — in development. Currently supports volume up/down and mute.
-  This is where the project starts.
-- **iOS** — planned as the next platform, sharing the same connection logic.
+- **Mac** — in development.
+- **iOS** — planned as the next platform.
 
 > The device running Soma and the TV must be on the same local network.
