@@ -15,6 +15,7 @@
 		AA0000000000000000000014 /* HotKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000014 /* HotKeys.swift */; };
 		AA0000000000000000000015 /* SamsungTVClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000015 /* SamsungTVClient.swift */; };
 		AA0000000000000000000016 /* DeviceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000016 /* DeviceStore.swift */; };
+		AA0000000000000000000028 /* SoundEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000028 /* SoundEffects.swift */; };
 		AA0000000000000000000017 /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000017 /* SettingsStore.swift */; };
 		AA0000000000000000000018 /* WakeOnLAN.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000018 /* WakeOnLAN.swift */; };
 		AA0000000000000000000019 /* SleepTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000019 /* SleepTimer.swift */; };
@@ -51,6 +52,7 @@
 		BB0000000000000000000014 /* HotKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotKeys.swift; sourceTree = "<group>"; };
 		BB0000000000000000000015 /* SamsungTVClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamsungTVClient.swift; sourceTree = "<group>"; };
 		BB0000000000000000000016 /* DeviceStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceStore.swift; sourceTree = "<group>"; };
+		BB0000000000000000000028 /* SoundEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundEffects.swift; sourceTree = "<group>"; };
 		BB0000000000000000000017 /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
 		BB0000000000000000000018 /* WakeOnLAN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeOnLAN.swift; sourceTree = "<group>"; };
 		BB0000000000000000000019 /* SleepTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepTimer.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				BB0000000000000000000018 /* WakeOnLAN.swift */,
 				BB0000000000000000000019 /* SleepTimer.swift */,
 				BB000000000000000000001A /* GlobalHotKeyManager.swift */,
+				BB0000000000000000000028 /* SoundEffects.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -269,6 +272,7 @@
 				AA0000000000000000000014 /* HotKeys.swift in Sources */,
 				AA0000000000000000000015 /* SamsungTVClient.swift in Sources */,
 				AA0000000000000000000016 /* DeviceStore.swift in Sources */,
+				AA0000000000000000000028 /* SoundEffects.swift in Sources */,
 				AA0000000000000000000017 /* SettingsStore.swift in Sources */,
 				AA0000000000000000000018 /* WakeOnLAN.swift in Sources */,
 				AA0000000000000000000019 /* SleepTimer.swift in Sources */,

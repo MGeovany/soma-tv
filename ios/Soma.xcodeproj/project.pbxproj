@@ -16,6 +16,7 @@
 		B10000000000000000000021 /* WakeOnLAN.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10000000000000000000021 /* WakeOnLAN.swift */; };
 		B10000000000000000000022 /* SleepTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10000000000000000000022 /* SleepTimer.swift */; };
 		B10000000000000000000023 /* DeviceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10000000000000000000023 /* DeviceStore.swift */; };
+		B10000000000000000000024 /* SoundEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10000000000000000000024 /* SoundEffects.swift */; };
 		B10000000000000000000030 /* TVControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10000000000000000000030 /* TVControllerViewModel.swift */; };
 		B10000000000000000000040 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10000000000000000000040 /* Theme.swift */; };
 		B10000000000000000000041 /* GlassStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10000000000000000000041 /* GlassStyle.swift */; };
@@ -44,6 +45,7 @@
 		F10000000000000000000021 /* WakeOnLAN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeOnLAN.swift; sourceTree = "<group>"; };
 		F10000000000000000000022 /* SleepTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepTimer.swift; sourceTree = "<group>"; };
 		F10000000000000000000023 /* DeviceStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceStore.swift; sourceTree = "<group>"; };
+		F10000000000000000000024 /* SoundEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundEffects.swift; sourceTree = "<group>"; };
 		F10000000000000000000030 /* TVControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVControllerViewModel.swift; sourceTree = "<group>"; };
 		F10000000000000000000040 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		F10000000000000000000041 /* GlassStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassStyle.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				F10000000000000000000021 /* WakeOnLAN.swift */,
 				F10000000000000000000022 /* SleepTimer.swift */,
 				F10000000000000000000023 /* DeviceStore.swift */,
+				F10000000000000000000024 /* SoundEffects.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 				B10000000000000000000021 /* WakeOnLAN.swift in Sources */,
 				B10000000000000000000022 /* SleepTimer.swift in Sources */,
 				B10000000000000000000023 /* DeviceStore.swift in Sources */,
+				B10000000000000000000024 /* SoundEffects.swift in Sources */,
 				B10000000000000000000030 /* TVControllerViewModel.swift in Sources */,
 				B10000000000000000000050 /* RootView.swift in Sources */,
 				B10000000000000000000051 /* RemoteControlView.swift in Sources */,

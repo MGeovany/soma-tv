@@ -1,7 +1,11 @@
 # Soma
 
+<p align="center">
+  <img src="assets/icon.png" alt="Soma app icon" width="128" height="128">
+</p>
+
 A macOS app (iOS planned next) that controls Samsung Smart TVs over the local
-network, using Samsung's WebSocket remote protocol — no cloud, no
+network, using Samsung's WebSocket remote protocol: no cloud, no
 third-party service, no account required. The TV shows an authorization
 prompt on first connection, and from then on the app can send
 remote-control commands to it.
@@ -11,8 +15,8 @@ configuration and device selection.
 
 ## Status
 
-- **Mac** (`macos/`) — menu-bar remote with a full configuration window.
-- **iOS** (`ios/`) — SwiftUI mobile remote (iPhone/iPad), same core and design.
+- **Mac** (`macos/`): menu-bar remote with a full configuration window.
+- **iOS** (`ios/`): SwiftUI mobile remote (iPhone/iPad), same core and design.
 
 > The device running Soma and the TV must be on the same local network.
 
