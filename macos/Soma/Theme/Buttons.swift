@@ -16,6 +16,45 @@ private extension View {
     func dimWhenDisabled() -> some View { modifier(DisabledDim()) }
 }
 
+/// Plays a mechanical "click" the moment a control becomes pressed. Only fires
+/// while the control is enabled.
+private struct PressSound: ViewModifier {
+    let pressed: Bool
+    @Environment(\.isEnabled) private var isEnabled
+
+    @ViewBuilder
+    func body(content: Content) -> some View {
+        if #available(iOS 17.0, macOS 14.0, *) {
+            content.onChange(of: pressed) { _, now in fire(now) }
+        } else {
+            content.onChange(of: pressed) { now in fire(now) }
+        }
+    }
+
+    private func fire(_ now: Bool) {
+        if now && isEnabled { SoundEffects.shared.play(.click) }
+    }
+}
+
+/// Plays a soft "tick" when the pointer moves onto a control (macOS / iPad
+/// pointer). Only fires while the control is enabled.
+private struct HoverSound: ViewModifier {
+    @Environment(\.isEnabled) private var isEnabled
+
+    func body(content: Content) -> some View {
+        content.onHover { hovering in
+            if hovering && isEnabled { SoundEffects.shared.play(.hover) }
+        }
+    }
+}
+
+private extension View {
+    /// Adds keyboard-style press + hover sound feedback to a control.
+    func keyboardSound(pressed: Bool) -> some View {
+        modifier(PressSound(pressed: pressed)).modifier(HoverSound())
+    }
+}
+
 /// Primary action: frosted accent glass.
 struct PrimaryButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
@@ -32,6 +71,7 @@ struct PrimaryButtonStyle: ButtonStyle {
                 )
             )
             .dimWhenDisabled()
+            .keyboardSound(pressed: configuration.isPressed)
     }
 }
 
@@ -50,6 +90,7 @@ struct GhostButtonStyle: ButtonStyle {
                 )
             )
             .dimWhenDisabled()
+            .keyboardSound(pressed: configuration.isPressed)
     }
 }
 
@@ -68,6 +109,7 @@ struct RemoteTileStyle: ButtonStyle {
                 )
             )
             .dimWhenDisabled()
+            .keyboardSound(pressed: configuration.isPressed)
     }
 }
 
@@ -78,7 +120,10 @@ struct Chip: View {
     let action: () -> Void
 
     var body: some View {
-        Button(action: action) {
+        Button {
+            SoundEffects.shared.play(.click)
+            action()
+        } label: {
             Text(title)
                 .font(Theme.ui(11, weight: .medium))
                 .textCase(.uppercase)
@@ -89,5 +134,6 @@ struct Chip: View {
                 .background(GlassButtonBackground(cornerRadius: 999, accent: isActive))
         }
         .buttonStyle(.plain)
+        .onHover { if $0 { SoundEffects.shared.play(.hover) } }
     }
 }
